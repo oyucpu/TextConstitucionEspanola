@@ -1,0 +1,4628 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Test Constitución Española</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f6f8;
+    margin: 0;
+    padding: 20px;
+}
+h1 { text-align: center; }
+.panel {
+    background: white;
+    padding: 15px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+}
+button {
+    padding: 10px 15px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+.pregunta {
+    font-weight: bold;
+}
+.opcion {
+    display: block;
+    margin: 5px 0;
+}
+.correcta { color: green; }
+.incorrecta { color: red; }
+</style>
+</head>
+
+<body>
+
+<h1>Constitución Española - Test</h1>
+
+<div class="panel">
+    <h3>Configuración</h3>
+    <label>Número de preguntas:
+        <input type="number" id="numPreguntas" value="10">
+    </label><br><br>
+
+    <label>Modo:
+        <select id="modo">
+            <option value="estudio">Estudio</option>
+            <option value="examen">Examen</option>
+        </select>
+    </label><br><br>
+
+    <label><input type="checkbox" class="seccion" value="Título Preliminar" checked> Título Preliminar</label><br>
+    <label><input type="checkbox" class="seccion" value="Derechos Fundamentales" checked> Derechos Fundamentales</label><br>
+    <label><input type="checkbox" class="seccion" value="La Corona" checked> La Corona</label><br>
+    <label><input type="checkbox" class="seccion" value="Cortes Generales" checked> Cortes Generales</label><br>
+    <label><input type="checkbox" class="seccion" value="Gobierno" checked> Gobierno</label><br>
+    <label><input type="checkbox" class="seccion" value="Poder Judicial" checked> Poder Judicial</label><br>
+    <label><input type="checkbox" class="seccion" value="Organización Territorial" checked> Organización Territorial</label><br>
+    <label><input type="checkbox" class="seccion" value="Tribunal Constitucional" checked> Tribunal Constitucional</label><br>
+
+    <button onclick="iniciar()">Iniciar</button>
+</div>
+
+<div id="test" class="panel"></div>
+
+<script>
+const preguntas = [
+/* =========================
+   TÍTULO PRELIMINAR (FÁCIL)
+========================= */
+{
+id: 1,
+seccion: "Título Preliminar",
+nivel: 1,
+pregunta: "¿En qué año fue aprobada la Constitución Española?",
+opciones: ["1975", "1978", "1981", "1985"],
+correcta: 1
+},
+
+{
+id: 2,
+seccion: "Título Preliminar",
+nivel: 1,
+pregunta: "¿Qué forma política adopta el Estado español?",
+opciones: ["República", "Monarquía absoluta", "Monarquía parlamentaria", "Estado federal"],
+correcta: 2
+},
+
+{
+id: 3,
+seccion: "Título Preliminar",
+nivel: 1,
+pregunta: "¿En qué artículo se define a España como Estado social y democrático de Derecho?",
+opciones: ["Artículo 1", "Artículo 2", "Artículo 9", "Artículo 10"],
+correcta: 0
+},
+{
+id: 4,
+seccion: "Título Preliminar",
+nivel: 1,
+pregunta: "¿De quién emanan los poderes del Estado?",
+opciones: ["Del Rey", "Del Gobierno", "Del pueblo español", "De las Cortes"],
+correcta: 2
+},
+{
+id: 5,
+seccion: "Título Preliminar",
+nivel: 2,
+pregunta: "¿Cuál es la lengua oficial del Estado?",
+opciones: ["El castellano", "El español y el catalán", "Todas las lenguas españolas", "El castellano y el euskera"],
+correcta: 0
+},
+{
+id: 6,
+seccion: "Título Preliminar",
+nivel: 2,
+pregunta: "¿Qué valores superiores propugna la Constitución?",
+opciones: [
+"La justicia, igualdad, libertad y pluralismo político",
+"La unidad, solidaridad y justicia",
+"La democracia y la monarquía",
+"La legalidad y la seguridad"
+],
+correcta: 0
+},
+{
+id: 7,
+seccion: "Título Preliminar",
+nivel: 1,
+pregunta: "¿Qué artículo establece la soberanía nacional?",
+opciones: ["Artículo 1", "Artículo 2", "Artículo 3", "Artículo 9"],
+correcta: 0
+},
+{
+id: 8,
+seccion: "Título Preliminar",
+nivel: 1,
+pregunta: "¿Cuál es la capital del Estado?",
+opciones: ["Barcelona", "Sevilla", "Madrid", "Valencia"],
+correcta: 2
+},
+{
+id: 9,
+seccion: "Título Preliminar",
+nivel: 1,
+pregunta: "¿Qué artículo proclama la unidad de la Nación española?",
+opciones: ["Artículo 1", "Artículo 2", "Artículo 8", "Artículo 9"],
+correcta: 1
+},
+{
+id: 10,
+seccion: "Título Preliminar",
+nivel: 1,
+pregunta: "¿Qué artículo regula la bandera de España?",
+opciones: ["Artículo 3", "Artículo 4", "Artículo 5", "Artículo 6"],
+correcta: 1
+},
+{
+id: 11,
+seccion: "Título Preliminar",
+nivel: 1,
+pregunta: "¿Qué forma política del Estado establece la Constitución?",
+opciones: [
+"República parlamentaria",
+"Monarquía constitucional",
+"Monarquía parlamentaria",
+"Estado federal"
+],
+correcta: 2
+},
+{
+id: 12,
+seccion: "Título Preliminar",
+nivel: 2,
+pregunta: "¿Qué principio garantiza la autonomía de nacionalidades y regiones?",
+opciones: [
+"Unidad",
+"Solidaridad",
+"Autonomía",
+"Jerarquía"
+],
+correcta: 2
+},
+{
+id: 13,
+seccion: "Título Preliminar",
+nivel: 2,
+pregunta: "¿Cuál es la lengua oficial del Estado?",
+opciones: [
+"El español",
+"El castellano",
+"El castellano y las lenguas autonómicas",
+"Todas las lenguas españolas"
+],
+correcta: 1
+},
+{
+id: 14,
+seccion: "Título Preliminar",
+nivel: 2,
+pregunta: "¿Qué obliga a los ciudadanos respecto a la Constitución?",
+opciones: [
+"Conocerla",
+"Cumplirla",
+"Votarla",
+"Modificarla"
+],
+correcta: 1
+},
+{
+id: 15,
+seccion: "Título Preliminar",
+nivel: 2,
+pregunta: "¿Qué obliga a los poderes públicos según el artículo 9?",
+opciones: [
+"Interpretar la Constitución",
+"Promover condiciones de libertad e igualdad",
+"Ejecutar las leyes",
+"Convocar elecciones"
+],
+correcta: 1
+},
+{
+id: 16,
+seccion: "Título Preliminar",
+nivel: 2,
+pregunta: "¿Qué partidos políticos expresa el pluralismo político?",
+opciones: [
+"Solo partidos estatales",
+"Solo partidos autonómicos",
+"Los partidos políticos concurren a la formación de la voluntad popular",
+"Los partidos sustituyen a las Cortes"
+],
+correcta: 2
+},
+{
+id: 17,
+seccion: "Título Preliminar",
+nivel: 3,
+pregunta: "¿Qué artículo establece la supremacía de la Constitución?",
+opciones: ["Artículo 1", "Artículo 2", "Artículo 9", "Artículo 10"],
+correcta: 2
+},
+{
+id: 18,
+seccion: "Título Preliminar",
+nivel: 3,
+pregunta: "¿Qué artículo regula las Fuerzas Armadas?",
+opciones: ["Artículo 6", "Artículo 7", "Artículo 8", "Artículo 9"],
+correcta: 2
+},
+{
+id: 19,
+seccion: "Título Preliminar",
+nivel: 3,
+pregunta: "¿Cuál es la misión principal de las Fuerzas Armadas?",
+opciones: [
+"Defender al Gobierno",
+"Garantizar la seguridad ciudadana",
+"Defender la integridad territorial y el orden constitucional",
+"Controlar el poder judicial"
+],
+correcta: 2
+},
+{
+id: 20,
+seccion: "Título Preliminar",
+nivel: 3,
+pregunta: "¿Qué artículo reconoce los sindicatos y asociaciones empresariales?",
+opciones: ["Artículo 6", "Artículo 7", "Artículo 8", "Artículo 9"],
+correcta: 1
+},
+{
+id: 21,
+seccion: "Título Preliminar",
+nivel: 3,
+pregunta: "¿Qué principio prohíbe la arbitrariedad de los poderes públicos?",
+opciones: [
+"Legalidad",
+"Seguridad jurídica",
+"Responsabilidad",
+"Interdicción de la arbitrariedad"
+],
+correcta: 3
+},
+{
+id: 22,
+seccion: "Título Preliminar",
+nivel: 3,
+pregunta: "¿Qué garantiza el principio de seguridad jurídica?",
+opciones: [
+"Estabilidad normativa",
+"Justicia social",
+"Igualdad económica",
+"Libertad ideológica"
+],
+correcta: 0
+},
+{
+id: 23,
+seccion: "Título Preliminar",
+nivel: 3,
+pregunta: "¿Qué principio obliga a todos al cumplimiento de la ley?",
+opciones: [
+"Pluralismo político",
+"Legalidad",
+"Autonomía",
+"Solidaridad"
+],
+correcta: 1
+},
+{
+id: 24,
+seccion: "Título Preliminar",
+nivel: 3,
+pregunta: "¿Qué artículo establece el sometimiento de los poderes públicos a la Constitución?",
+opciones: ["Artículo 1", "Artículo 2", "Artículo 9", "Artículo 10"],
+correcta: 2
+},
+{
+id: 25,
+seccion: "Título Preliminar",
+nivel: 3,
+pregunta: "¿Qué principio garantiza la responsabilidad de los poderes públicos?",
+opciones: [
+"Legalidad",
+"Jerarquía normativa",
+"Responsabilidad",
+"Seguridad jurídica"
+],
+correcta: 2
+},
+{
+id: 26,
+seccion: "Título Preliminar",
+nivel: 3,
+pregunta: "¿Qué artículo establece los valores superiores del ordenamiento jurídico?",
+opciones: ["Artículo 1", "Artículo 2", "Artículo 3", "Artículo 9"],
+correcta: 0
+},
+{
+id: 27,
+seccion: "Título Preliminar",
+nivel: 1,
+pregunta: "La soberanía nacional reside, según la Constitución, en:",
+opciones: ["El pueblo español", "El Rey", "Las Cortes Generales", "El Gobierno"],
+correcta: 0
+},
+{
+id: 28,
+seccion: "Título Preliminar",
+nivel: 1,
+pregunta: "¿Dónde se establece la capital del Estado español?",
+opciones: ["Barcelona", "Sevilla", "Madrid", "Toledo"],
+correcta: 2
+},
+{
+id: 29,
+seccion: "Título Preliminar",
+nivel: 1,
+pregunta: "La Constitución garantiza la unidad de la Nación española en el artículo:",
+opciones: ["1", "2", "8", "9"],
+correcta: 1
+},
+{
+id: 30,
+seccion: "Título Preliminar",
+nivel: 1,
+pregunta: "¿En qué precepto constitucional se regula la bandera de España?",
+opciones: ["Artículo 3", "Artículo 4", "Artículo 5", "Artículo 6"],
+correcta: 1
+},
+{
+id: 31,
+seccion: "Título Preliminar",
+nivel: 1,
+pregunta: "¿Qué sistema político adopta España según la Constitución?",
+opciones: [
+"Monarquía absoluta",
+"República democrática",
+"Monarquía parlamentaria",
+"Estado confederal"
+],
+correcta: 2
+},
+{
+id: 32,
+seccion: "Título Preliminar",
+nivel: 2,
+pregunta: "El derecho a la autonomía de nacionalidades y regiones se reconoce junto al principio de:",
+opciones: [
+"Jerarquía normativa",
+"Unidad de la Nación",
+"Legalidad",
+"Pluralismo político"
+],
+correcta: 1
+},
+{
+id: 33,
+seccion: "Título Preliminar",
+nivel: 2,
+pregunta: "El deber de conocer y el derecho a usar la lengua oficial del Estado corresponde a:",
+opciones: [
+"El español",
+"El castellano",
+"Las lenguas autonómicas",
+"Todas las lenguas oficiales"
+],
+correcta: 1
+},
+{
+id: 34,
+seccion: "Título Preliminar",
+nivel: 2,
+pregunta: "Según la Constitución, los ciudadanos están obligados principalmente a:",
+opciones: [
+"Interpretar la Constitución",
+"Cumplir la Constitución y el resto del ordenamiento jurídico",
+"Modificar la Constitución",
+"Promover reformas legales"
+],
+correcta: 1
+},
+{
+id: 35,
+seccion: "Título Preliminar",
+nivel: 2,
+pregunta: "Los poderes públicos deben promover condiciones para que la libertad y la igualdad sean:",
+opciones: [
+"Reales y efectivas",
+"Solo jurídicas",
+"Económicas",
+"Políticas"
+],
+correcta: 0
+},
+{
+id: 36,
+seccion: "Título Preliminar",
+nivel: 2,
+pregunta: "¿Qué función cumplen los partidos políticos según la Constitución?",
+opciones: [
+"Sustituir al Parlamento",
+"Representar al Gobierno",
+"Contribuir a la formación de la voluntad popular",
+"Ejercer el poder judicial"
+],
+correcta: 2
+},
+{
+id: 37,
+seccion: "Título Preliminar",
+nivel: 3,
+pregunta: "La Constitución es la norma suprema del ordenamiento jurídico según el artículo:",
+opciones: ["1", "2", "9", "10"],
+correcta: 2
+},
+{
+id: 38,
+seccion: "Título Preliminar",
+nivel: 3,
+pregunta: "Las Fuerzas Armadas están reguladas constitucionalmente en el artículo:",
+opciones: ["6", "7", "8", "9"],
+correcta: 2
+},
+{
+id: 39,
+seccion: "Título Preliminar",
+nivel: 3,
+pregunta: "¿Cuál es una de las funciones constitucionales de las Fuerzas Armadas?",
+opciones: [
+"Defender la integridad territorial",
+"Garantizar la acción del Gobierno",
+"Controlar el orden legislativo",
+"Ejercer funciones judiciales"
+],
+correcta: 0
+},
+{
+id: 40,
+seccion: "Título Preliminar",
+nivel: 3,
+pregunta: "Los sindicatos y asociaciones empresariales se reconocen constitucionalmente en el artículo:",
+opciones: ["6", "7", "8", "9"],
+correcta: 1
+},
+{
+id: 41,
+seccion: "Título Preliminar",
+nivel: 3,
+pregunta: "¿Qué principio constitucional impide las decisiones arbitrarias de los poderes públicos?",
+opciones: [
+"Legalidad",
+"Seguridad jurídica",
+"Responsabilidad",
+"Interdicción de la arbitrariedad"
+],
+correcta: 3
+},
+{
+id: 42,
+seccion: "Título Preliminar",
+nivel: 3,
+pregunta: "La previsibilidad y estabilidad de las normas se relaciona con el principio de:",
+opciones: [
+"Seguridad jurídica",
+"Pluralismo político",
+"Autonomía",
+"Solidaridad"
+],
+correcta: 0
+},
+{
+id: 43,
+seccion: "Título Preliminar",
+nivel: 3,
+pregunta: "¿Qué principio asegura que nadie esté por encima de la ley?",
+opciones: [
+"Pluralismo político",
+"Legalidad",
+"Autonomía",
+"Unidad"
+],
+correcta: 1
+},
+{
+id: 44,
+seccion: "Título Preliminar",
+nivel: 3,
+pregunta: "Los poderes públicos están sujetos a la Constitución y al resto del ordenamiento jurídico según el artículo:",
+opciones: ["1", "2", "9", "10"],
+correcta: 2
+},
+{
+id: 45,
+seccion: "Título Preliminar",
+nivel: 3,
+pregunta: "¿Qué principio constitucional implica que los poderes públicos deben responder de sus actos?",
+opciones: [
+"Jerarquía normativa",
+"Responsabilidad",
+"Legalidad",
+"Seguridad jurídica"
+],
+correcta: 1
+},
+{
+id: 46,
+seccion: "Título Preliminar",
+nivel: 3,
+pregunta: "Los valores superiores del ordenamiento jurídico se establecen en el artículo:",
+opciones: ["1", "2", "3", "9"],
+correcta: 0
+},
+{
+id: 47,
+seccion: "Título Preliminar",
+nivel: 2,
+pregunta: "¿Quién ostenta la soberanía nacional según el texto constitucional?",
+opciones: [
+"El Estado",
+"El Rey",
+"El pueblo español",
+"Las Cortes Generales"
+],
+correcta: 2
+},
+{
+id: 48,
+seccion: "Título Preliminar",
+nivel: 2,
+pregunta: "La Constitución establece que los poderes públicos deben actuar conforme al principio de:",
+opciones: [
+"Autonomía",
+"Legalidad",
+"Pluralismo",
+"Solidaridad"
+],
+correcta: 1
+},
+{
+id: 49,
+seccion: "Título Preliminar",
+nivel: 3,
+pregunta: "¿Qué principio constitucional garantiza que las normas inferiores respeten a las superiores?",
+opciones: [
+"Seguridad jurídica",
+"Responsabilidad",
+"Jerarquía normativa",
+"Interdicción de la arbitrariedad"
+],
+correcta: 2
+},
+{
+id: 50,
+seccion: "Título Preliminar",
+nivel: 3,
+pregunta: "Según la Constitución, España se constituye en un Estado:",
+opciones: [
+"Liberal y descentralizado",
+"Social y democrático de Derecho",
+"Federal y plural",
+"Monárquico absoluto"
+],
+correcta: 1
+},
+
+/* =========================
+   DERECHOS FUNDAMENTALES
+========================= */
+{
+id: 51,
+seccion: "Derechos Fundamentales",
+nivel: 1,
+pregunta: "¿Qué artículo reconoce el derecho a la vida?",
+opciones: ["Artículo 10", "Artículo 14", "Artículo 15", "Artículo 18"],
+correcta: 2
+},
+{
+id: 52,
+seccion: "Derechos Fundamentales",
+nivel: 2,
+pregunta: "¿Cuál de estos derechos puede ser suspendido en estados de excepción?",
+opciones: ["Derecho a la educación", "Libertad de expresión", "Derecho a la huelga", "Derecho al honor"],
+correcta: 1
+},
+{
+id: 53,
+seccion: "Derechos Fundamentales",
+nivel: 1,
+pregunta: "¿Qué artículo reconoce la igualdad ante la ley?",
+opciones: ["Artículo 9", "Artículo 10", "Artículo 14", "Artículo 15"],
+correcta: 2
+},
+{
+id: 54,
+seccion: "Derechos Fundamentales",
+nivel: 1,
+pregunta: "¿Qué derecho protege el artículo 18?",
+opciones: [
+"Libertad ideológica",
+"Derecho a la educación",
+"Derecho al honor, intimidad y propia imagen",
+"Derecho de reunión"
+],
+correcta: 2
+},
+{
+id: 55,
+seccion: "Derechos Fundamentales",
+nivel: 2,
+pregunta: "¿Cuál es la edad mínima para la mayoría de edad?",
+opciones: ["16 años", "17 años", "18 años", "21 años"],
+correcta: 2
+},
+{
+id: 56,
+seccion: "Derechos Fundamentales",
+nivel: 2,
+pregunta: "¿Qué derecho regula el artículo 20?",
+opciones: [
+"Derecho a la educación",
+"Libertad de expresión",
+"Derecho de huelga",
+"Derecho de asociación"
+],
+correcta: 1
+},
+{
+id: 57,
+seccion: "Derechos Fundamentales",
+nivel: 3,
+pregunta: "¿Qué derechos pueden suspenderse en estados de excepción?",
+opciones: [
+"Derechos económicos",
+"Algunos derechos fundamentales",
+"Todos los derechos",
+"Ningún derecho"
+],
+correcta: 1
+},
+{
+id: 58,
+seccion: "Derechos Fundamentales",
+nivel: 1,
+pregunta: "¿Qué artículo reconoce el derecho a la vida?",
+opciones: ["Artículo 10", "Artículo 14", "Artículo 15", "Artículo 18"],
+correcta: 2
+},
+{
+id: 59,
+seccion: "Derechos Fundamentales",
+nivel: 1,
+pregunta: "¿Qué artículo reconoce la igualdad ante la ley?",
+opciones: ["Artículo 9", "Artículo 10", "Artículo 14", "Artículo 15"],
+correcta: 2
+},
+{
+id: 60,
+seccion: "Derechos Fundamentales",
+nivel: 1,
+pregunta: "¿Qué derecho protege el artículo 18?",
+opciones: [
+"Libertad ideológica",
+"Derecho a la educación",
+"Derecho al honor, intimidad y propia imagen",
+"Derecho de reunión"
+],
+correcta: 2
+},
+{
+id: 61,
+seccion: "Derechos Fundamentales",
+nivel: 2,
+pregunta: "¿Cuál es la edad mínima para la mayoría de edad?",
+opciones: ["16 años", "17 años", "18 años", "21 años"],
+correcta: 2
+},
+{
+id: 62,
+seccion: "Derechos Fundamentales",
+nivel: 2,
+pregunta: "¿Qué derecho regula el artículo 20?",
+opciones: [
+"Derecho a la educación",
+"Libertad de expresión",
+"Derecho de huelga",
+"Derecho de asociación"
+],
+correcta: 1
+},
+{
+id: 63,
+seccion: "Derechos Fundamentales",
+nivel: 1,
+pregunta: "¿Qué artículo reconoce la libertad ideológica, religiosa y de culto?",
+opciones: ["Artículo 14", "Artículo 15", "Artículo 16", "Artículo 17"],
+correcta: 2
+},
+{
+id: 64,
+seccion: "Derechos Fundamentales",
+nivel: 1,
+pregunta: "¿Qué artículo regula el derecho a la libertad y a la seguridad?",
+opciones: ["Artículo 15", "Artículo 16", "Artículo 17", "Artículo 18"],
+correcta: 2
+},
+{
+id: 65,
+seccion: "Derechos Fundamentales",
+nivel: 1,
+pregunta: "¿Qué derecho garantiza el artículo 19?",
+opciones: [
+"Libertad de expresión",
+"Libertad de residencia y circulación",
+"Derecho de reunión",
+"Derecho de asociación"
+],
+correcta: 1
+},
+{
+id: 66,
+seccion: "Derechos Fundamentales",
+nivel: 1,
+pregunta: "¿Qué derecho reconoce el artículo 21?",
+opciones: [
+"Derecho de asociación",
+"Derecho de reunión",
+"Derecho de huelga",
+"Derecho de sindicación"
+],
+correcta: 1
+},
+{
+id: 67,
+seccion: "Derechos Fundamentales",
+nivel: 2,
+pregunta: "¿El derecho de reunión requiere autorización previa?",
+opciones: ["Sí", "No", "Solo en lugares cerrados", "Solo en vía pública"],
+correcta: 1
+},
+{
+id: 68,
+seccion: "Derechos Fundamentales",
+nivel: 1,
+pregunta: "¿Qué artículo regula el derecho de asociación?",
+opciones: ["Artículo 21", "Artículo 22", "Artículo 23", "Artículo 24"],
+correcta: 1
+},
+{
+id: 69,
+seccion: "Derechos Fundamentales",
+nivel: 2,
+pregunta: "¿Qué artículo reconoce el derecho a participar en los asuntos públicos?",
+opciones: ["Artículo 22", "Artículo 23", "Artículo 24", "Artículo 25"],
+correcta: 1
+},
+{
+id: 70,
+seccion: "Derechos Fundamentales",
+nivel: 2,
+pregunta: "¿Qué derecho garantiza el artículo 24?",
+opciones: [
+"Tutela judicial efectiva",
+"Derecho a la educación",
+"Derecho a la huelga",
+"Libertad sindical"
+],
+correcta: 0
+},
+{
+id: 71,
+seccion: "Derechos Fundamentales",
+nivel: 2,
+pregunta: "¿Qué derecho reconoce el artículo 27?",
+opciones: [
+"Derecho a la educación",
+"Derecho a la huelga",
+"Derecho al trabajo",
+"Derecho de sindicación"
+],
+correcta: 0
+},
+{
+id: 72,
+seccion: "Derechos Fundamentales",
+nivel: 2,
+pregunta: "¿Qué artículo regula la libertad sindical?",
+opciones: ["Artículo 27", "Artículo 28", "Artículo 29", "Artículo 30"],
+correcta: 1
+},
+{
+id: 73,
+seccion: "Derechos Fundamentales",
+nivel: 2,
+pregunta: "¿Qué derecho reconoce el artículo 28.2?",
+opciones: [
+"Derecho de sindicación",
+"Derecho de huelga",
+"Derecho al trabajo",
+"Derecho a la negociación colectiva"
+],
+correcta: 1
+},
+{
+id: 74,
+seccion: "Derechos Fundamentales",
+nivel: 1,
+pregunta: "¿Qué artículo regula el derecho de petición?",
+opciones: ["Artículo 28", "Artículo 29", "Artículo 30", "Artículo 31"],
+correcta: 1
+},
+{
+id: 75,
+seccion: "Derechos Fundamentales",
+nivel: 3,
+pregunta: "¿Qué derecho NO puede ser suspendido ni siquiera en estados de excepción?",
+opciones: [
+"Derecho a la vida",
+"Derecho de reunión",
+"Libertad de expresión",
+"Derecho de huelga"
+],
+correcta: 0
+},
+{
+id: 76,
+seccion: "Derechos Fundamentales",
+nivel: 2,
+pregunta: "¿Cuál es el plazo máximo de detención preventiva?",
+opciones: ["24 horas", "48 horas", "72 horas", "96 horas"],
+correcta: 2
+},
+{
+id: 77,
+seccion: "Derechos Fundamentales",
+nivel: 3,
+pregunta: "¿Qué artículo permite recabar la tutela de los derechos fundamentales ante el Tribunal Constitucional?",
+opciones: [
+"Artículo 24",
+"Artículo 53",
+"Artículo 81",
+"Artículo 161"
+],
+correcta: 1
+},
+{
+id: 78,
+seccion: "Derechos Fundamentales",
+nivel: 2,
+pregunta: "¿Qué artículo establece el derecho al trabajo?",
+opciones: ["Artículo 33", "Artículo 34", "Artículo 35", "Artículo 36"],
+correcta: 2
+},
+{
+id: 79,
+seccion: "Derechos Fundamentales",
+nivel: 2,
+pregunta: "¿Qué artículo reconoce el derecho a la propiedad privada?",
+opciones: ["Artículo 31", "Artículo 32", "Artículo 33", "Artículo 34"],
+correcta: 2
+},
+{
+id: 80,
+seccion: "Derechos Fundamentales",
+nivel: 2,
+pregunta: "¿Está abolida la pena de muerte en España?",
+opciones: ["Sí, en todos los casos", "No", "Solo en tiempo de paz", "Solo para delitos comunes"],
+correcta: 0
+},
+{
+  id: 81,
+  seccion: "Derechos Fundamentales",
+  nivel: 2,
+  pregunta: "¿Qué artículo regula el derecho a la tutela judicial efectiva?",
+  opciones: ["Artículo 22", "Artículo 24", "Artículo 26", "Artículo 28"],
+  correcta: 1
+},
+{
+  id: 82,
+  seccion: "Derechos Fundamentales",
+  nivel: 2,
+  pregunta: "¿Qué artículo reconoce el derecho de petición?",
+  opciones: ["Artículo 27", "Artículo 28", "Artículo 29", "Artículo 30"],
+  correcta: 2
+},
+{
+  id: 83,
+  seccion: "Derechos Fundamentales",
+  nivel: 2,
+  pregunta: "¿Pueden los extranjeros ser titulares de derechos fundamentales en España?",
+  opciones: ["No, en ningún caso", "Sí, en los términos que establezcan los tratados y la ley", "Solo si tienen residencia permanente", "Solo los derechos sociales"],
+  correcta: 1
+},
+{
+  id: 84,
+  seccion: "Derechos Fundamentales",
+  nivel: 2,
+  pregunta: "¿Qué artículo establece el derecho a la educación?",
+  opciones: ["Artículo 25", "Artículo 26", "Artículo 27", "Artículo 28"],
+  correcta: 2
+},
+{
+  id: 85,
+  seccion: "Derechos Fundamentales",
+  nivel: 2,
+  pregunta: "¿La enseñanza básica es obligatoria y gratuita?",
+  opciones: ["Sí", "No", "Solo obligatoria", "Solo gratuita"],
+  correcta: 0
+},
+{
+  id: 86,
+  seccion: "Derechos Fundamentales",
+  nivel: 2,
+  pregunta: "¿Qué artículo reconoce la libertad sindical?",
+  opciones: ["Artículo 26", "Artículo 27", "Artículo 28", "Artículo 29"],
+  correcta: 2
+},
+{
+  id: 87,
+  seccion: "Derechos Fundamentales",
+  nivel: 2,
+  pregunta: "¿Tienen derecho de huelga los miembros de las Fuerzas Armadas?",
+  opciones: ["Sí, sin restricciones", "No", "Solo en tiempo de paz", "Solo con autorización"],
+  correcta: 1
+},
+{
+  id: 88,
+  seccion: "Derechos Fundamentales",
+  nivel: 2,
+  pregunta: "¿Qué artículo regula el derecho de reunión?",
+  opciones: ["Artículo 19", "Artículo 20", "Artículo 21", "Artículo 22"],
+  correcta: 2
+},
+{
+  id: 89,
+  seccion: "Derechos Fundamentales",
+  nivel: 2,
+  pregunta: "¿Las reuniones en lugares de tránsito público requieren autorización previa?",
+  opciones: ["Sí, siempre", "No, solo comunicación previa", "Sí, solo las manifestaciones", "No requieren nada"],
+  correcta: 1
+},
+{
+  id: 90,
+  seccion: "Derechos Fundamentales",
+  nivel: 2,
+  pregunta: "¿Qué artículo reconoce el derecho de asociación?",
+  opciones: ["Artículo 20", "Artículo 21", "Artículo 22", "Artículo 23"],
+  correcta: 2
+},
+{
+  id: 91,
+  seccion: "Derechos Fundamentales",
+  nivel: 2,
+  pregunta: "¿Están prohibidas las asociaciones secretas?",
+  opciones: ["No", "Sí", "Solo las políticas", "Solo las militares"],
+  correcta: 1
+},
+{
+  id: 92,
+  seccion: "Derechos Fundamentales",
+  nivel: 2,
+  pregunta: "¿Qué artículo regula el derecho a la participación política?",
+  opciones: ["Artículo 21", "Artículo 22", "Artículo 23", "Artículo 24"],
+  correcta: 2
+},
+{
+  id: 93,
+  seccion: "Derechos Fundamentales",
+  nivel: 2,
+  pregunta: "¿Pueden los ciudadanos acceder a funciones públicas en condiciones de igualdad?",
+  opciones: ["Sí, según mérito y capacidad", "No", "Solo por oposición", "Solo por concurso"],
+  correcta: 0
+},
+{
+  id: 94,
+  seccion: "Derechos Fundamentales",
+  nivel: 2,
+  pregunta: "¿Qué artículo reconoce el derecho al honor, intimidad personal y familiar?",
+  opciones: ["Artículo 16", "Artículo 17", "Artículo 18", "Artículo 19"],
+  correcta: 2
+},
+{
+  id: 95,
+  seccion: "Derechos Fundamentales",
+  nivel: 2,
+  pregunta: "¿El domicilio es inviolable?",
+  opciones: ["Sí, sin excepciones", "Sí, salvo flagrante delito o resolución judicial", "No", "Solo de día"],
+  correcta: 1
+},
+{
+  id: 96,
+  seccion: "Derechos Fundamentales",
+  nivel: 2,
+  pregunta: "¿Qué artículo garantiza el secreto de las comunicaciones?",
+  opciones: ["Artículo 17", "Artículo 18", "Artículo 19", "Artículo 20"],
+  correcta: 1
+},
+{
+  id: 97,
+  seccion: "Derechos Fundamentales",
+  nivel: 2,
+  pregunta: "¿Qué artículo reconoce la libertad de expresión?",
+  opciones: ["Artículo 18", "Artículo 19", "Artículo 20", "Artículo 21"],
+  correcta: 2
+},
+{
+  id: 98,
+  seccion: "Derechos Fundamentales",
+  nivel: 2,
+  pregunta: "¿Existe censura previa en España?",
+  opciones: ["Sí, en casos excepcionales", "No", "Solo en estado de excepción", "Solo para publicaciones extranjeras"],
+  correcta: 1
+},
+{
+  id: 99,
+  seccion: "Derechos Fundamentales",
+  nivel: 2,
+  pregunta: "¿Qué artículo regula la libertad de cátedra?",
+  opciones: ["Artículo 18", "Artículo 19", "Artículo 20", "Artículo 27"],
+  correcta: 2
+},
+{
+  id: 100,
+  seccion: "Derechos Fundamentales",
+  nivel: 2,
+  pregunta: "¿La detención preventiva puede durar más de 72 horas?",
+  opciones: ["Sí, hasta 10 días", "No, máximo 72 horas", "Sí, sin límite", "Sí, hasta 7 días"],
+  correcta: 1
+},
+
+/* =========================
+   LA CORONA
+========================= */
+{
+id: 101,
+seccion: "La Corona",
+nivel: 1,
+pregunta: "¿Quién es el Jefe del Estado según la Constitución?",
+opciones: ["El Presidente del Gobierno", "El Rey", "Las Cortes Generales", "El Tribunal Constitucional"],
+correcta: 1
+},
+{
+id: 102,
+seccion: "La Corona",
+nivel: 2,
+pregunta: "¿Quién refrenda los actos del Rey?",
+opciones: ["El Congreso", "El Presidente del Gobierno", "El Senado", "El Tribunal Supremo"],
+correcta: 1
+},
+{
+id: 103,
+seccion: "La Corona",
+nivel: 1,
+pregunta: "¿La persona del Rey es?",
+opciones: ["Responsable", "Inviolable", "Electiva", "Revocable"],
+correcta: 1
+},
+{
+id: 104,
+seccion: "La Corona",
+nivel: 2,
+pregunta: "¿Cómo se regula la sucesión al trono?",
+opciones: [
+"Por elección popular",
+"Por ley orgánica",
+"Por orden regular de primogenitura",
+"Por decisión del Gobierno"
+],
+correcta: 2
+},
+{
+id: 105,
+seccion: "La Corona",
+nivel: 2,
+pregunta: "¿Quién propone al candidato a Presidente del Gobierno?",
+opciones: ["El Congreso", "El Rey", "El Senado", "El Tribunal Constitucional"],
+correcta: 1
+},
+{
+  id: 106,
+  seccion: "La Corona",
+  nivel: 1,
+  pregunta: "¿Qué título ostenta el Rey de España?",
+  opciones: ["Rey de España", "Rey de las Españas", "Rey de España y de las Indias", "Rey de todos los españoles"],
+  correcta: 0
+},
+{
+  id: 107,
+  seccion: "La Corona",
+  nivel: 2,
+  pregunta: "¿En qué artículo se regula la Corona?",
+  opciones: ["Título I", "Título II", "Título III", "Título IV"],
+  correcta: 1
+},
+{
+  id: 108,
+  seccion: "La Corona",
+  nivel: 1,
+  pregunta: "¿El Rey arbitra y modera el funcionamiento regular de?",
+  opciones: ["El Gobierno", "Las instituciones", "Los Tribunales", "Las autonomías"],
+  correcta: 1
+},
+{
+  id: 109,
+  seccion: "La Corona",
+  nivel: 2,
+  pregunta: "¿Quién asume la Regencia en caso necesario?",
+  opciones: ["El Presidente del Gobierno", "El padre o madre del Rey o el pariente mayor de edad más próximo", "El Congreso", "El Presidente del Tribunal Supremo"],
+  correcta: 1
+},
+{
+  id: 110,
+  seccion: "La Corona",
+  nivel: 2,
+  pregunta: "¿A qué edad alcanza la mayoría de edad el heredero de la Corona?",
+  opciones: ["16 años", "18 años", "21 años", "25 años"],
+  correcta: 1
+},
+{
+  id: 111,
+  seccion: "La Corona",
+  nivel: 1,
+  pregunta: "¿El Rey es el símbolo de qué?",
+  opciones: ["Del Gobierno", "De la unidad y permanencia del Estado", "De las Cortes", "Del poder judicial"],
+  correcta: 1
+},
+{
+  id: 112,
+  seccion: "La Corona",
+  nivel: 2,
+  pregunta: "¿Quién sanciona y promulga las leyes?",
+  opciones: ["El Presidente del Gobierno", "El Congreso", "El Rey", "El Senado"],
+  correcta: 2
+},
+{
+  id: 113,
+  seccion: "La Corona",
+  nivel: 2,
+  pregunta: "¿Quién convoca y disuelve las Cortes Generales?",
+  opciones: ["El Presidente del Gobierno", "El Rey", "El Congreso de los Diputados", "Ambas Cámaras conjuntamente"],
+  correcta: 1
+},
+{
+  id: 114,
+  seccion: "La Corona",
+  nivel: 2,
+  pregunta: "¿Quién convoca elecciones en los términos previstos en la Constitución?",
+  opciones: ["El Gobierno", "El Rey", "El Congreso", "La Junta Electoral"],
+  correcta: 1
+},
+{
+  id: 115,
+  seccion: "La Corona",
+  nivel: 2,
+  pregunta: "¿Quién nombra y separa a los miembros del Gobierno?",
+  opciones: ["El Congreso", "El Rey, a propuesta del Presidente", "El Presidente del Gobierno", "Las Cortes"],
+  correcta: 1
+},
+{
+  id: 116,
+  seccion: "La Corona",
+  nivel: 1,
+  pregunta: "¿Quién expide los decretos acordados en el Consejo de Ministros?",
+  opciones: ["El Presidente del Gobierno", "El Rey", "El Ministro correspondiente", "El Congreso"],
+  correcta: 1
+},
+{
+  id: 117,
+  seccion: "La Corona",
+  nivel: 2,
+  pregunta: "¿Quién es el mando supremo de las Fuerzas Armadas?",
+  opciones: ["El Ministro de Defensa", "El Rey", "El Presidente del Gobierno", "El Estado Mayor"],
+  correcta: 1
+},
+{
+  id: 118,
+  seccion: "La Corona",
+  nivel: 2,
+  pregunta: "¿Quién ejerce el derecho de gracia con arreglo a la ley?",
+  opciones: ["El Gobierno", "El Rey", "El Tribunal Supremo", "Las Cortes"],
+  correcta: 1
+},
+{
+  id: 119,
+  seccion: "La Corona",
+  nivel: 2,
+  pregunta: "¿Quién acredita a los embajadores y otros representantes diplomáticos?",
+  opciones: ["El Ministro de Asuntos Exteriores", "El Rey", "El Presidente del Gobierno", "Las Cortes"],
+  correcta: 1
+},
+{
+  id: 120,
+  seccion: "La Corona",
+  nivel: 2,
+  pregunta: "¿Ante quién están acreditados los representantes extranjeros en España?",
+  opciones: ["El Gobierno", "El Rey", "El Ministro de Asuntos Exteriores", "El Congreso"],
+  correcta: 1
+},
+{
+  id: 121,
+  seccion: "La Corona",
+  nivel: 2,
+  pregunta: "¿Quién manifiesta el consentimiento del Estado para obligarse internacionalmente por medio de tratados?",
+  opciones: ["El Gobierno", "El Rey", "Las Cortes", "El Ministro de Asuntos Exteriores"],
+  correcta: 1
+},
+{
+  id: 122,
+  seccion: "La Corona",
+  nivel: 2,
+  pregunta: "¿Quién declara la guerra y hace la paz?",
+  opciones: ["El Gobierno", "El Rey, previa autorización de las Cortes", "Las Cortes Generales", "El Consejo de Ministros"],
+  correcta: 1
+},
+{
+  id: 123,
+  seccion: "La Corona",
+  nivel: 1,
+  pregunta: "¿Son responsables los actos del Rey?",
+  opciones: ["Sí, siempre", "No, salvo lo dispuesto para la regencia", "Sí, ante las Cortes", "Sí, ante el Gobierno"],
+  correcta: 1
+},
+{
+  id: 124,
+  seccion: "La Corona",
+  nivel: 2,
+  pregunta: "¿Quién refrendará los actos del Rey en ausencia del Presidente del Gobierno?",
+  opciones: ["El Vicepresidente", "Los Ministros competentes", "El Presidente del Congreso", "El Consejo de Estado"],
+  correcta: 1
+},
+{
+  id: 125,
+  seccion: "La Corona",
+  nivel: 2,
+  pregunta: "¿Quién es responsable de los actos del Rey?",
+  opciones: ["El propio Rey", "Quien los refrenda", "Nadie", "Las Cortes"],
+  correcta: 1
+},
+{
+  id: 126,
+  seccion: "La Corona",
+  nivel: 2,
+  pregunta: "¿Qué acto del Rey NO requiere refrendo?",
+  opciones: ["Sancionar leyes", "Nombrar su Casa", "Nombrar al Presidente del Gobierno", "Convocar elecciones"],
+  correcta: 1
+},
+{
+  id: 127,
+  seccion: "La Corona",
+  nivel: 2,
+  pregunta: "¿Puede el Rey ejercer funciones constitucionales fuera del territorio nacional?",
+  opciones: ["No, nunca", "Sí, previa autorización de las Cortes", "Sí, sin restricciones", "Solo en estados de la UE"],
+  correcta: 1
+},
+{
+  id: 128,
+  seccion: "La Corona",
+  nivel: 1,
+  pregunta: "¿En quién recae la sucesión a la Corona?",
+  opciones: ["En los herederos del Rey", "En quien designen las Cortes", "En el primogénito", "En quien elija el pueblo"],
+  correcta: 0
+},
+{
+  id: 129,
+  seccion: "La Corona",
+  nivel: 2,
+  pregunta: "En la sucesión al trono, ¿qué preferencia existe?",
+  opciones: ["El hombre sobre la mujer", "La línea anterior a las posteriores", "Ambas son correctas", "La edad sobre el sexo"],
+  correcta: 2
+},
+{
+  id: 130,
+  seccion: "La Corona",
+  nivel: 2,
+  pregunta: "En la misma línea, ¿qué grado es preferido?",
+  opciones: ["El más lejano", "El más próximo al más remoto", "No hay preferencia", "El designado por el Rey"],
+  correcta: 1
+},
+{
+  id: 131,
+  seccion: "La Corona",
+  nivel: 2,
+  pregunta: "En el mismo grado, ¿quién es preferido en la sucesión?",
+  opciones: ["El más joven", "El varón a la mujer", "La mujer al varón", "Quien designe el Rey"],
+  correcta: 1
+},
+{
+  id: 132,
+  seccion: "La Corona",
+  nivel: 2,
+  pregunta: "En el mismo sexo, ¿quién es preferido?",
+  opciones: ["El más joven", "La persona de mayor edad al de menor", "No hay preferencia", "Quien elijan las Cortes"],
+  correcta: 1
+},
+{
+  id: 133,
+  seccion: "La Corona",
+  nivel: 2,
+  pregunta: "¿Pueden las personas con derecho a la sucesión contraer matrimonio libremente?",
+  opciones: ["Sí, sin restricciones", "No, requieren autorización del Rey y las Cortes", "Solo con españoles", "Solo con nobles"],
+  correcta: 1
+},
+{
+  id: 134,
+  seccion: "La Corona",
+  nivel: 2,
+  pregunta: "¿Qué ocurre si se casa sin autorización quien tiene derecho a la sucesión?",
+  opciones: ["Nada", "Pierde su derecho y el de sus descendientes", "Solo pierde él su derecho", "Debe solicitar dispensa"],
+  correcta: 1
+},
+{
+  id: 135,
+  seccion: "La Corona",
+  nivel: 2,
+  pregunta: "¿Quién puede ejercer la tutoría del Rey menor?",
+  opciones: ["Cualquier pariente", "La persona nombrada en testamento por el Rey difunto", "El Presidente del Gobierno", "El Congreso"],
+  correcta: 1
+},
+{
+  id: 136,
+  seccion: "La Corona",
+  nivel: 2,
+  pregunta: "Si no hay testamento, ¿quién será tutor del Rey menor?",
+  opciones: ["El Gobierno", "El padre o madre del Rey", "El Congreso", "El familiar más anciano"],
+  correcta: 1
+},
+{
+  id: 137,
+  seccion: "La Corona",
+  nivel: 2,
+  pregunta: "¿Puede ser tutor quien esté en la línea de sucesión al trono?",
+  opciones: ["Sí", "No, en ningún caso", "Solo con autorización", "Solo el padre o madre"],
+  correcta: 1
+},
+{
+  id: 138,
+  seccion: "La Corona",
+  nivel: 2,
+  pregunta: "¿Cuándo se nombra un Regente?",
+  opciones: ["Siempre que el Rey viaje", "Si el Rey es menor de edad", "Cuando lo decidan las Cortes", "Nunca"],
+  correcta: 1
+},
+{
+  id: 139,
+  seccion: "La Corona",
+  nivel: 2,
+  pregunta: "¿Puede el Príncipe heredero ser Regente?",
+  opciones: ["No", "Sí, siendo mayor de edad", "Solo con 21 años", "Solo si lo autoriza el Rey"],
+  correcta: 1
+},
+{
+  id: 140,
+  seccion: "La Corona",
+  nivel: 2,
+  pregunta: "Si no hay persona con derecho a la Regencia, ¿quién la ejerce?",
+  opciones: ["El Gobierno", "El Congreso nombra una Regencia de 1, 3 o 5 personas", "El Presidente del Gobierno", "El Senado"],
+  correcta: 1
+},
+{
+  id: 141,
+  seccion: "La Corona",
+  nivel: 1,
+  pregunta: "¿Qué juramento presta el Rey al ser proclamado?",
+  opciones: ["Servir al pueblo", "Guardar y hacer guardar la Constitución", "Defender la patria", "Respetar las leyes"],
+  correcta: 1
+},
+{
+  id: 142,
+  seccion: "La Corona",
+  nivel: 2,
+  pregunta: "¿Ante quién presta juramento el Rey?",
+  opciones: ["El Gobierno", "Las Cortes Generales", "El pueblo", "El Tribunal Constitucional"],
+  correcta: 1
+},
+{
+  id: 143,
+  seccion: "La Corona",
+  nivel: 2,
+  pregunta: "¿Presta el mismo juramento el Príncipe heredero?",
+  opciones: ["No", "Sí, al alcanzar la mayoría de edad", "Solo si el Rey lo ordena", "Solo ante el Senado"],
+  correcta: 1
+},
+{
+  id: 144,
+  seccion: "La Corona",
+  nivel: 2,
+  pregunta: "¿Quién nombra a los miembros civiles y militares de su Casa?",
+  opciones: ["El Gobierno", "El Rey libremente", "Las Cortes", "El Presidente del Gobierno"],
+  correcta: 1
+},
+{
+  id: 145,
+  seccion: "La Corona",
+  nivel: 2,
+  pregunta: "¿Quién distribuye la cantidad global de los presupuestos de la Casa del Rey?",
+  opciones: ["Las Cortes", "El Rey libremente", "El Gobierno", "El Ministro de Hacienda"],
+  correcta: 1
+},
+{
+  id: 146,
+  seccion: "La Corona",
+  nivel: 2,
+  pregunta: "¿De dónde proceden los fondos para la Casa del Rey?",
+  opciones: ["Patrimonio personal del Rey", "Presupuestos del Estado", "Donaciones", "Empresas de la Corona"],
+  correcta: 1
+},
+{
+  id: 147,
+  seccion: "La Corona",
+  nivel: 1,
+  pregunta: "¿Puede el Rey tener empleo activo?",
+  opciones: ["Sí", "No", "Solo militar", "Solo honorífico"],
+  correcta: 1
+},
+{
+  id: 148,
+  seccion: "La Corona",
+  nivel: 2,
+  pregunta: "¿Se puede procesar al Rey?",
+  opciones: ["Sí", "No, es inviolable", "Solo por traición", "Solo con autorización de las Cortes"],
+  correcta: 1
+},
+{
+  id: 149,
+  seccion: "La Corona",
+  nivel: 2,
+  pregunta: "¿Asiste el Rey a las sesiones de las Cortes?",
+  opciones: ["Sí, habitualmente", "Solo cuando las convoca o las disuelve", "Nunca", "Solo en la apertura solemne"],
+  correcta: 3
+},
+{
+  id: 150,
+  seccion: "La Corona",
+  nivel: 2,
+  pregunta: "¿Qué ocurre si se extinguen todas las líneas sucesorias?",
+  opciones: ["Se elige nuevo Rey", "Las Cortes Generales proveerán a la sucesión", "Se proclama la República", "Decide el Gobierno"],
+  correcta: 1
+},
+/* =========================
+   DERECHOS FUNDAMENTALES (EXTRA)
+========================= */
+{
+id: 151,
+seccion: "Derechos Fundamentales",
+nivel: 1,
+pregunta: "¿Qué artículo reconoce la libertad ideológica, religiosa y de culto?",
+opciones: ["Artículo 14", "Artículo 15", "Artículo 16", "Artículo 17"],
+correcta: 2
+},
+{
+id: 152,
+seccion: "Derechos Fundamentales",
+nivel: 1,
+pregunta: "¿Qué artículo regula el derecho a la libertad y a la seguridad?",
+opciones: ["Artículo 15", "Artículo 16", "Artículo 17", "Artículo 18"],
+correcta: 2
+},
+{
+id: 153,
+seccion: "Derechos Fundamentales",
+nivel: 1,
+pregunta: "¿Qué derecho garantiza el artículo 19?",
+opciones: [
+"Libertad de expresión",
+"Libertad de residencia y circulación",
+"Derecho de reunión",
+"Derecho de asociación"
+],
+correcta: 1
+},
+{
+id: 154,
+seccion: "Derechos Fundamentales",
+nivel: 1,
+pregunta: "¿Qué derecho reconoce el artículo 21?",
+opciones: [
+"Derecho de asociación",
+"Derecho de reunión",
+"Derecho de huelga",
+"Derecho de sindicación"
+],
+correcta: 1
+},
+{
+id: 155,
+seccion: "Derechos Fundamentales",
+nivel: 2,
+pregunta: "¿El derecho de reunión requiere autorización previa?",
+opciones: ["Sí", "No", "Solo en lugares cerrados", "Solo en vía pública"],
+correcta: 1
+},
+{
+id: 156,
+seccion: "Derechos Fundamentales",
+nivel: 1,
+pregunta: "¿Qué artículo regula el derecho de asociación?",
+opciones: ["Artículo 21", "Artículo 22", "Artículo 23", "Artículo 24"],
+correcta: 1
+},
+{
+id: 157,
+seccion: "Derechos Fundamentales",
+nivel: 2,
+pregunta: "¿Qué artículo reconoce el derecho a participar en los asuntos públicos?",
+opciones: ["Artículo 22", "Artículo 23", "Artículo 24", "Artículo 25"],
+correcta: 1
+},
+{
+id: 158,
+seccion: "Derechos Fundamentales",
+nivel: 2,
+pregunta: "¿Qué derecho garantiza el artículo 24?",
+opciones: [
+"Tutela judicial efectiva",
+"Derecho a la educación",
+"Derecho a la huelga",
+"Libertad sindical"
+],
+correcta: 0
+},
+{
+id: 159,
+seccion: "Derechos Fundamentales",
+nivel: 2,
+pregunta: "¿Qué prohíbe el artículo 25 de la Constitución?",
+opciones: [
+"La pena de prisión",
+"Las penas privativas de libertad",
+"Las penas no previstas por la ley",
+"Las sanciones administrativas"
+],
+correcta: 2
+},
+{
+id: 160,
+seccion: "Derechos Fundamentales",
+nivel: 2,
+pregunta: "¿Qué derecho reconoce el artículo 27?",
+opciones: [
+"Derecho a la educación",
+"Derecho a la huelga",
+"Derecho al trabajo",
+"Derecho de sindicación"
+],
+correcta: 0
+},
+{
+id: 161,
+seccion: "Derechos Fundamentales",
+nivel: 3,
+pregunta: "¿Quiénes son titulares del derecho a la educación?",
+opciones: [
+"Solo los españoles",
+"Solo los menores",
+"Todos",
+"Los ciudadanos mayores de edad"
+],
+correcta: 2
+},
+{
+id: 162,
+seccion: "Derechos Fundamentales",
+nivel: 2,
+pregunta: "¿Qué artículo regula la libertad sindical?",
+opciones: ["Artículo 27", "Artículo 28", "Artículo 29", "Artículo 30"],
+correcta: 1
+},
+{
+id: 163,
+seccion: "Derechos Fundamentales",
+nivel: 2,
+pregunta: "¿Qué derecho reconoce el artículo 28.2?",
+opciones: [
+"Derecho de sindicación",
+"Derecho de huelga",
+"Derecho al trabajo",
+"Derecho a la negociación colectiva"
+],
+correcta: 1
+},
+{
+id: 164,
+seccion: "Derechos Fundamentales",
+nivel: 1,
+pregunta: "¿Qué artículo regula el derecho de petición?",
+opciones: ["Artículo 28", "Artículo 29", "Artículo 30", "Artículo 31"],
+correcta: 1
+},
+{
+id: 165,
+seccion: "Derechos Fundamentales",
+nivel: 3,
+pregunta: "¿En qué casos puede limitarse la libertad de expresión?",
+opciones: [
+"Nunca",
+"Por ley y respetando otros derechos",
+"Solo en estados de alarma",
+"Por decisión judicial sin ley"
+],
+correcta: 1
+},
+{
+id: 166,
+seccion: "Derechos Fundamentales",
+nivel: 3,
+pregunta: "¿Qué derecho está especialmente protegido mediante recurso de amparo?",
+opciones: [
+"Derechos fundamentales",
+"Derechos económicos",
+"Principios rectores",
+"Derechos laborales"
+],
+correcta: 0
+},
+{
+id: 167,
+seccion: "Derechos Fundamentales",
+nivel: 3,
+pregunta: "¿Qué derecho NO puede ser suspendido ni siquiera en estados de excepción?",
+opciones: [
+"Derecho a la vida",
+"Derecho de reunión",
+"Libertad de expresión",
+"Derecho de huelga"
+],
+correcta: 0
+},
+{
+id: 168,
+seccion: "Derechos Fundamentales",
+nivel: 2,
+pregunta: "¿Qué derecho protege la inviolabilidad del domicilio?",
+opciones: [
+"Derecho a la libertad",
+"Derecho a la intimidad",
+"Derecho al honor",
+"Derecho a la educación"
+],
+correcta: 1
+},
+{
+id: 169,
+seccion: "Derechos Fundamentales",
+nivel: 2,
+pregunta: "¿Qué derecho garantiza el secreto de las comunicaciones?",
+opciones: [
+"Libertad ideológica",
+"Intimidad personal",
+"Inviolabilidad del domicilio",
+"Secreto de las comunicaciones"
+],
+correcta: 3
+},
+{
+id: 170,
+seccion: "Derechos Fundamentales",
+nivel: 3,
+pregunta: "¿Qué artículo permite recabar la tutela de los derechos fundamentales ante el Tribunal Constitucional?",
+opciones: [
+"Artículo 24",
+"Artículo 53",
+"Artículo 81",
+"Artículo 161"
+],
+correcta: 1
+},
+
+
+/* =========================
+   CORTES GENERALES
+========================= */
+{
+id: 171,
+seccion: "Cortes Generales",
+nivel: 1,
+pregunta: "¿Cómo se denominan las dos cámaras de las Cortes Generales?",
+opciones: ["Congreso y Tribunal", "Congreso y Senado", "Senado y Consejo", "Asamblea y Senado"],
+correcta: 1
+},
+{
+id: 172,
+seccion: "Cortes Generales",
+nivel: 2,
+pregunta: "¿Cuántos años dura el mandato del Congreso?",
+opciones: ["2 años", "3 años", "4 años", "5 años"],
+correcta: 2
+},
+{
+  id: 173,
+  seccion: "Cortes Generales",
+  nivel: 1,
+  pregunta: "¿Las Cortes Generales representan a quién?",
+  opciones: ["Al Gobierno", "Al pueblo español", "A las Comunidades Autónomas", "Al Rey"],
+  correcta: 1
+},
+{
+  id: 174,
+  seccion: "Cortes Generales",
+  nivel: 2,
+  pregunta: "¿En qué Título de la Constitución se regulan las Cortes Generales?",
+  opciones: ["Título II", "Título III", "Título IV", "Título V"],
+  correcta: 1
+},
+{
+  id: 175,
+  seccion: "Cortes Generales",
+  nivel: 1,
+  pregunta: "¿Las Cortes Generales ejercen la potestad?",
+  opciones: ["Ejecutiva", "Legislativa", "Judicial", "Administrativa"],
+  correcta: 1
+},
+{
+  id: 176,
+  seccion: "Cortes Generales",
+  nivel: 2,
+  pregunta: "¿Pueden las Cámaras reunirse en sesión conjunta?",
+  opciones: ["No, nunca", "Sí, para ejercer competencias no legislativas", "Solo para legislar", "Solo en estado de excepción"],
+  correcta: 1
+},
+{
+  id: 177,
+  seccion: "Cortes Generales",
+  nivel: 2,
+  pregunta: "¿Quién controla la acción del Gobierno?",
+  opciones: ["El Rey", "Las Cortes Generales", "El Tribunal Constitucional", "El pueblo"],
+  correcta: 1
+},
+{
+  id: 178,
+  seccion: "Cortes Generales",
+  nivel: 2,
+  pregunta: "¿Las Cortes tienen otras competencias además de legislar?",
+  opciones: ["No", "Sí, las que les atribuya la Constitución", "Solo presupuestarias", "Solo de control"],
+  correcta: 1
+},
+{
+  id: 179,
+  seccion: "Cortes Generales",
+  nivel: 1,
+  pregunta: "¿Son inviolables los Diputados y Senadores?",
+  opciones: ["No", "Sí, por las opiniones manifestadas en el ejercicio de sus funciones", "Solo los Diputados", "Solo el Presidente"],
+  correcta: 1
+},
+{
+  id: 180,
+  seccion: "Cortes Generales",
+  nivel: 2,
+  pregunta: "¿Gozan de inmunidad los Diputados y Senadores durante su mandato?",
+  opciones: ["No", "Sí, no pueden ser detenidos salvo flagrante delito", "Solo fuera del Parlamento", "Solo en sesiones"],
+  correcta: 1
+},
+{
+  id: 181,
+  seccion: "Cortes Generales",
+  nivel: 2,
+  pregunta: "¿Qué se requiere para procesar a un Diputado o Senador?",
+  opciones: ["Nada especial", "Autorización de la Cámara respectiva", "Autorización del Rey", "Autorización del Gobierno"],
+  correcta: 1
+},
+{
+  id: 182,
+  seccion: "Cortes Generales",
+  nivel: 2,
+  pregunta: "¿Pueden los Diputados y Senadores ser miembros del Gobierno?",
+  opciones: ["No, es incompatible", "Sí", "Solo los Diputados", "Solo con permiso"],
+  correcta: 1
+},
+{
+  id: 183,
+  seccion: "Cortes Generales",
+  nivel: 1,
+  pregunta: "¿Cuántos Diputados componen el Congreso?",
+  opciones: ["250", "300", "No menos de 300 ni más de 400", "500"],
+  correcta: 2
+},
+{
+  id: 184,
+  seccion: "Cortes Generales",
+  nivel: 2,
+  pregunta: "¿Cómo se eligen los Diputados?",
+  opciones: ["Por mayoría simple", "Por sufragio universal, libre, igual, directo y secreto", "Por las Comunidades Autónomas", "Por el Senado"],
+  correcta: 1
+},
+{
+  id: 185,
+  seccion: "Cortes Generales",
+  nivel: 2,
+  pregunta: "¿Cuál es la circunscripción electoral para el Congreso?",
+  opciones: ["La Comunidad Autónoma", "La provincia", "El municipio", "Todo el territorio nacional"],
+  correcta: 1
+},
+{
+  id: 186,
+  seccion: "Cortes Generales",
+  nivel: 2,
+  pregunta: "¿Ceuta y Melilla están representadas en el Congreso?",
+  opciones: ["No", "Sí", "Solo Ceuta", "Solo Melilla"],
+  correcta: 1
+},
+{
+  id: 187,
+  seccion: "Cortes Generales",
+  nivel: 2,
+  pregunta: "¿Qué sistema se utiliza para la elección de Diputados?",
+  opciones: ["Mayoritario", "Proporcional", "Mixto", "Por sorteo"],
+  correcta: 1
+},
+{
+  id: 188,
+  seccion: "Cortes Generales",
+  nivel: 2,
+  pregunta: "¿Cómo se determina el número exacto de Diputados?",
+  opciones: ["Por la Constitución", "Por ley", "Por decreto", "Por el Rey"],
+  correcta: 1
+},
+{
+  id: 189,
+  seccion: "Cortes Generales",
+  nivel: 1,
+  pregunta: "¿Quién elige a los Senadores de representación territorial?",
+  opciones: ["El Rey", "Los habitantes de cada provincia", "Las Comunidades Autónomas", "El Congreso"],
+  correcta: 1
+},
+{
+  id: 190,
+  seccion: "Cortes Generales",
+  nivel: 2,
+  pregunta: "¿Cuántos Senadores elige cada provincia?",
+  opciones: ["2", "3", "4", "5"],
+  correcta: 2
+},
+{
+  id: 191,
+  seccion: "Cortes Generales",
+  nivel: 2,
+  pregunta: "¿Cuántos Senadores corresponden a las poblaciones de más de un millón de habitantes?",
+  opciones: ["3", "4", "5", "1 adicional"],
+  correcta: 3
+},
+{
+  id: 192,
+  seccion: "Cortes Generales",
+  nivel: 2,
+  pregunta: "¿Cuántos Senadores eligen Ceuta y Melilla?",
+  opciones: ["1 cada una", "2 cada una", "3 cada una", "Ninguno"],
+  correcta: 1
+},
+{
+  id: 193,
+  seccion: "Cortes Generales",
+  nivel: 2,
+  pregunta: "¿Pueden las Comunidades Autónomas designar Senadores?",
+  opciones: ["No", "Sí, además de los elegidos directamente", "Solo ellas eligen Senadores", "Solo las históricas"],
+  correcta: 1
+},
+{
+  id: 194,
+  seccion: "Cortes Generales",
+  nivel: 2,
+  pregunta: "¿Cuántos Senadores designa inicialmente cada Comunidad Autónoma?",
+  opciones: ["Uno", "Dos", "Tres", "Cuatro"],
+  correcta: 0
+},
+{
+  id: 195,
+  seccion: "Cortes Generales",
+  nivel: 2,
+  pregunta: "¿Designan más Senadores las Comunidades con más población?",
+  opciones: ["No", "Sí, uno más por cada millón de habitantes", "Sí, dos más por cada millón", "Depende de la ley"],
+  correcta: 1
+},
+{
+  id: 196,
+  seccion: "Cortes Generales",
+  nivel: 2,
+  pregunta: "¿Quién designa los Senadores autonómicos?",
+  opciones: ["El pueblo directamente", "La Asamblea Legislativa autonómica", "El Presidente autonómico", "El Gobierno autonómico"],
+  correcta: 1
+},
+{
+  id: 197,
+  seccion: "Cortes Generales",
+  nivel: 1,
+  pregunta: "¿Qué edad mínima se requiere para ser elector?",
+  opciones: ["16 años", "18 años", "21 años", "25 años"],
+  correcta: 1
+},
+{
+  id: 198,
+  seccion: "Cortes Generales",
+  nivel: 2,
+  pregunta: "¿Qué edad mínima se requiere para ser elegible como Diputado?",
+  opciones: ["18 años", "21 años", "23 años", "25 años"],
+  correcta: 0
+},
+{
+  id: 199,
+  seccion: "Cortes Generales",
+  nivel: 2,
+  pregunta: "¿Son elegibles los condenados por sentencia firme?",
+  opciones: ["Sí", "No, si la sentencia lo determina", "Nunca", "Solo para el Senado"],
+  correcta: 1
+},
+{
+  id: 200,
+  seccion: "Cortes Generales",
+  nivel: 2,
+  pregunta: "¿Quién regula las causas de inelegibilidad e incompatibilidad?",
+  opciones: ["La Constitución exclusivamente", "La ley electoral", "El Gobierno", "Cada Cámara"],
+  correcta: 1
+},
+{
+  id: 201,
+  seccion: "Cortes Generales",
+  nivel: 2,
+  pregunta: "¿Cuándo tienen lugar las elecciones al Congreso y Senado?",
+  opciones: ["En fechas diferentes", "Entre los 30 y 60 días desde la terminación del mandato", "Inmediatamente", "Cuando lo decida el Rey"],
+  correcta: 1
+},
+{
+  id: 202,
+  seccion: "Cortes Generales",
+  nivel: 2,
+  pregunta: "¿El Congreso electo debe ser convocado?",
+  opciones: ["No", "Sí, dentro de los 25 días siguientes a las elecciones", "Cuando lo decida el Gobierno", "A los dos meses"],
+  correcta: 1
+},
+{
+  id: 203,
+  seccion: "Cortes Generales",
+  nivel: 2,
+  pregunta: "Si expira el mandato del Congreso, ¿qué ocurre con el anterior?",
+  opciones: ["Continúa indefinidamente", "Continúa sus funciones hasta la constitución del nuevo", "Cesa inmediatamente", "Se prorroga automáticamente"],
+  correcta: 1
+},
+{
+  id: 204,
+  seccion: "Cortes Generales",
+  nivel: 2,
+  pregunta: "Si se disuelven las Cortes, ¿qué ocurre?",
+  opciones: ["Se elige nuevo Rey", "Las elecciones se celebran según lo establecido", "Gobierna el Rey", "El mandato se prorroga"],
+  correcta: 1
+},
+{
+  id: 205,
+  seccion: "Cortes Generales",
+  nivel: 1,
+  pregunta: "¿Quién elige al Presidente del Congreso?",
+  opciones: ["El Rey", "El propio Congreso", "El Gobierno", "El Senado"],
+  correcta: 1
+},
+{
+  id: 206,
+  seccion: "Cortes Generales",
+  nivel: 2,
+  pregunta: "¿Quién elige la Mesa del Congreso?",
+  opciones: ["El Presidente", "Los propios Diputados", "El Gobierno", "El Rey"],
+  correcta: 1
+},
+{
+  id: 207,
+  seccion: "Cortes Generales",
+  nivel: 2,
+  pregunta: "¿Puede cada Cámara elaborar su propio Reglamento?",
+  opciones: ["No", "Sí", "Solo con aprobación del Gobierno", "Solo con aprobación del Rey"],
+  correcta: 1
+},
+{
+  id: 208,
+  seccion: "Cortes Generales",
+  nivel: 2,
+  pregunta: "¿Por qué mayoría se aprueba el Reglamento de cada Cámara?",
+  opciones: ["Mayoría simple", "Mayoría absoluta", "Dos tercios", "Unanimidad"],
+  correcta: 1
+},
+{
+  id: 209,
+  seccion: "Cortes Generales",
+  nivel: 2,
+  pregunta: "¿Las sesiones plenarias de las Cámaras son públicas?",
+  opciones: ["No", "Sí, salvo acuerdo en contrario", "Siempre son secretas", "Depende del tema"],
+  correcta: 1
+},
+{
+  id: 210,
+  seccion: "Cortes Generales",
+  nivel: 2,
+  pregunta: "¿Se requiere quórum para que las Cámaras sesionen válidamente?",
+  opciones: ["No", "Sí, la mayoría de sus miembros", "Solo en votaciones importantes", "Dos tercios"],
+  correcta: 1
+},
+{
+  id: 211,
+  seccion: "Cortes Generales",
+  nivel: 2,
+  pregunta: "¿Pueden las Cámaras delegar funciones legislativas?",
+  opciones: ["Sí, sin restricción", "No, salvo en las Comisiones Legislativas Permanentes", "Nunca", "Solo en el Gobierno"],
+  correcta: 1
+},
+{
+  id: 212,
+  seccion: "Cortes Generales",
+  nivel: 2,
+  pregunta: "¿Qué materias NO pueden delegarse a las Comisiones Legislativas?",
+  opciones: ["Ninguna restricción", "Reforma constitucional, cuestiones internacionales, leyes orgánicas", "Solo reforma constitucional", "Todas pueden delegarse"],
+  correcta: 1
+},
+{
+  id: 213,
+  seccion: "Cortes Generales",
+  nivel: 1,
+  pregunta: "¿Pueden los ciudadanos dirigir peticiones a las Cortes?",
+  opciones: ["No", "Sí, individual y colectivamente", "Solo colectivamente", "Solo a través de asociaciones"],
+  correcta: 1
+},
+{
+  id: 214,
+  seccion: "Cortes Generales",
+  nivel: 2,
+  pregunta: "¿Pueden las Cámaras recibir peticiones colectivas directamente?",
+  opciones: ["Sí, siempre", "No, solo a través de sus miembros", "Solo el Congreso", "Solo el Senado"],
+  correcta: 1
+},
+{
+  id: 215,
+  seccion: "Cortes Generales",
+  nivel: 2,
+  pregunta: "¿Pueden las Cámaras enviar mensajes al Gobierno?",
+  opciones: ["No", "Sí, sobre cualquier asunto", "Solo peticiones formales", "Solo preguntas"],
+  correcta: 1
+},
+{
+  id: 216,
+  seccion: "Cortes Generales",
+  nivel: 2,
+  pregunta: "¿Debe el Gobierno responder a las interpelaciones?",
+  opciones: ["No", "Sí", "Solo si quiere", "Solo las del Congreso"],
+  correcta: 1
+},
+{
+  id: 217,
+  seccion: "Cortes Generales",
+  nivel: 1,
+  pregunta: "¿Cuándo tienen las Cámaras dos períodos ordinarios de sesiones al año?",
+  opciones: ["Enero a junio y julio a diciembre", "Septiembre a diciembre y febrero a junio", "Todo el año", "No hay períodos fijos"],
+  correcta: 1
+},
+{
+  id: 218,
+  seccion: "Cortes Generales",
+  nivel: 2,
+  pregunta: "¿Pueden convocarse las Cámaras en sesiones extraordinarias?",
+  opciones: ["No", "Sí, a petición del Gobierno, de la Diputación Permanente o de la mayoría absoluta", "Solo si lo decide el Rey", "Solo en estado de excepción"],
+  correcta: 1
+},
+{
+  id: 219,
+  seccion: "Cortes Generales",
+  nivel: 2,
+  pregunta: "¿Qué es la Diputación Permanente?",
+  opciones: ["Una comisión del Gobierno", "Un órgano que vela por los poderes de las Cámaras cuando no están reunidas", "El grupo de Diputados veteranos", "La Mesa del Congreso"],
+  correcta: 1
+},
+{
+  id: 220,
+  seccion: "Cortes Generales",
+  nivel: 2,
+  pregunta: "¿Quién preside la Diputación Permanente?",
+  opciones: ["El Presidente del Gobierno", "El Presidente del Congreso", "El Rey", "El Presidente del Senado"],
+  correcta: 1
+},
+/* =========================
+   GOBIERNO
+========================= */
+{
+id: 221,
+seccion: "Gobierno",
+nivel: 1,
+pregunta: "¿Quién dirige la política interior y exterior?",
+opciones: ["El Rey", "Las Cortes", "El Gobierno", "El Senado"],
+correcta: 2
+},
+{
+  id: 222,
+  seccion: "Gobierno",
+  nivel: 1,
+  pregunta: "¿Quién dirige la Administración civil y militar?",
+  opciones: ["El Rey", "El Gobierno", "Las Cortes", "El Tribunal Supremo"],
+  correcta: 1
+},
+{
+  id: 223,
+  seccion: "Gobierno",
+  nivel: 1,
+  pregunta: "¿Quién ejerce la función ejecutiva?",
+  opciones: ["Las Cortes", "El Rey", "El Gobierno", "El Presidente del Congreso"],
+  correcta: 2
+},
+{
+  id: 224,
+  seccion: "Gobierno",
+  nivel: 2,
+  pregunta: "¿Quién dirige la defensa del Estado?",
+  opciones: ["El Rey", "El Gobierno", "Las Fuerzas Armadas", "El Congreso"],
+  correcta: 1
+},
+{
+  id: 225,
+  seccion: "Gobierno",
+  nivel: 2,
+  pregunta: "¿Quién compone el Gobierno?",
+  opciones: ["Solo el Presidente", "El Presidente, Vicepresidentes y Ministros", "El Presidente y los Ministros", "Presidente, Ministros y Secretarios de Estado"],
+  correcta: 1
+},
+{
+  id: 226,
+  seccion: "Gobierno",
+  nivel: 2,
+  pregunta: "¿Pueden existir Vicepresidentes en el Gobierno?",
+  opciones: ["No", "Sí, en su caso", "Siempre debe haber uno", "Solo en coaliciones"],
+  correcta: 1
+},
+{
+  id: 227,
+  seccion: "Gobierno",
+  nivel: 1,
+  pregunta: "¿Quién es el jefe del Gobierno?",
+  opciones: ["El Rey", "El Presidente del Gobierno", "El Presidente del Congreso", "El Ministro de la Presidencia"],
+  correcta: 1
+},
+{
+  id: 228,
+  seccion: "Gobierno",
+  nivel: 2,
+  pregunta: "¿El Presidente del Gobierno dirige la acción del Gobierno?",
+  opciones: ["No, la coordina solamente", "Sí, y coordina las funciones de sus miembros", "Solo en casos excepcionales", "Lo hacen conjuntamente todos los ministros"],
+  correcta: 1
+},
+{
+  id: 229,
+  seccion: "Gobierno",
+  nivel: 2,
+  pregunta: "¿Quién nombra y separa a los Vicepresidentes y Ministros?",
+  opciones: ["El Rey", "El Rey, a propuesta del Presidente del Gobierno", "El Congreso", "El Presidente del Gobierno libremente"],
+  correcta: 1
+},
+{
+  id: 230,
+  seccion: "Gobierno",
+  nivel: 2,
+  pregunta: "¿Pueden los miembros del Gobierno ejercer funciones representativas?",
+  opciones: ["Sí, libremente", "Solo las inherentes a su cargo", "No, en ningún caso", "Solo con autorización"],
+  correcta: 1
+},
+{
+  id: 231,
+  seccion: "Gobierno",
+  nivel: 2,
+  pregunta: "¿Pueden los miembros del Gobierno ejercer actividad profesional?",
+  opciones: ["Sí, sin restricciones", "No, salvo la actividad pública derivada de su cargo", "Solo actividades privadas", "Solo con autorización"],
+  correcta: 1
+},
+{
+  id: 232,
+  seccion: "Gobierno",
+  nivel: 2,
+  pregunta: "¿Se regula por ley el estatuto de los miembros del Gobierno?",
+  opciones: ["No", "Sí, y sus incompatibilidades", "Solo sus sueldos", "Solo del Presidente"],
+  correcta: 1
+},
+{
+  id: 233,
+  seccion: "Gobierno",
+  nivel: 1,
+  pregunta: "¿Quién propone al candidato a Presidente del Gobierno?",
+  opciones: ["El Congreso", "El Rey", "El Senado", "El Gobierno saliente"],
+  correcta: 1
+},
+{
+  id: 234,
+  seccion: "Gobierno",
+  nivel: 2,
+  pregunta: "¿A quién consulta el Rey antes de proponer candidato?",
+  opciones: ["A los partidos", "A los representantes de los grupos políticos con representación parlamentaria", "Al pueblo", "A los ex Presidentes"],
+  correcta: 1
+},
+{
+  id: 235,
+  seccion: "Gobierno",
+  nivel: 2,
+  pregunta: "¿Dónde expone el candidato su programa el candidato a Presidente?",
+  opciones: ["En el Senado", "En el Congreso de los Diputados", "Ante el Rey", "En ambas Cámaras"],
+  correcta: 1
+},
+{
+  id: 236,
+  seccion: "Gobierno",
+  nivel: 2,
+  pregunta: "¿Qué mayoría necesita el candidato en primera votación?",
+  opciones: ["Mayoría simple", "Mayoría absoluta", "Dos tercios", "Tres quintos"],
+  correcta: 1
+},
+{
+  id: 237,
+  seccion: "Gobierno",
+  nivel: 2,
+  pregunta: "Si no obtiene mayoría absoluta, ¿qué mayoría necesita 48 horas después?",
+  opciones: ["Mayoría absoluta de nuevo", "Mayoría simple", "Dos tercios", "No puede ser elegido"],
+  correcta: 1
+},
+{
+  id: 238,
+  seccion: "Gobierno",
+  nivel: 2,
+  pregunta: "¿Qué ocurre si transcurridos dos meses no hay Presidente elegido?",
+  opciones: ["Continúa el Gobierno anterior", "El Rey disuelve las Cortes y convoca nuevas elecciones", "Gobierna el Rey", "Se prorroga el plazo"],
+  correcta: 1
+},
+{
+  id: 239,
+  seccion: "Gobierno",
+  nivel: 2,
+  pregunta: "¿Quién nombra formalmente al Presidente del Gobierno?",
+  opciones: ["El Congreso", "El Rey", "El pueblo", "El Senado"],
+  correcta: 1
+},
+{
+  id: 240,
+  seccion: "Gobierno",
+  nivel: 2,
+  pregunta: "¿Responde el Gobierno solidariamente de su gestión?",
+  opciones: ["No", "Sí, ante el Congreso", "Sí, ante el Rey", "Solo el Presidente responde"],
+  correcta: 1
+},
+{
+  id: 241,
+  seccion: "Gobierno",
+  nivel: 2,
+  pregunta: "¿Puede el Congreso exigir responsabilidad política al Gobierno?",
+  opciones: ["No", "Sí, mediante moción de censura o cuestión de confianza", "Solo con moción de censura", "Solo el Rey puede"],
+  correcta: 1
+},
+{
+  id: 242,
+  seccion: "Gobierno",
+  nivel: 1,
+  pregunta: "¿Quién puede plantear una moción de censura?",
+  opciones: ["El Rey", "Al menos la décima parte de los Diputados", "Cualquier Diputado", "El Senado"],
+  correcta: 1
+},
+{
+  id: 243,
+  seccion: "Gobierno",
+  nivel: 2,
+  pregunta: "¿Debe la moción de censura incluir un candidato alternativo?",
+  opciones: ["No", "Sí", "Solo si lo pide el Rey", "Es opcional"],
+  correcta: 1
+},
+{
+  id: 244,
+  seccion: "Gobierno",
+  nivel: 2,
+  pregunta: "¿Cuándo debe votarse la moción de censura?",
+  opciones: ["Inmediatamente", "Entre el segundo y quinto día tras su presentación", "A los diez días", "Cuando decida el Presidente"],
+  correcta: 1
+},
+{
+  id: 245,
+  seccion: "Gobierno",
+  nivel: 2,
+  pregunta: "¿Qué mayoría se requiere para aprobar una moción de censura?",
+  opciones: ["Mayoría simple", "Mayoría absoluta del Congreso", "Dos tercios", "Tres quintos"],
+  correcta: 1
+},
+{
+  id: 246,
+  seccion: "Gobierno",
+  nivel: 2,
+  pregunta: "Si prospera la moción de censura, ¿qué ocurre?",
+  opciones: ["Se convocan elecciones", "El candidato propuesto se entiende investido de confianza", "El Rey nombra nuevo Presidente", "Se repite la votación"],
+  correcta: 1
+},
+{
+  id: 247,
+  seccion: "Gobierno",
+  nivel: 2,
+  pregunta: "Si se rechaza la moción de censura, ¿pueden los mismos firmantes presentar otra?",
+  opciones: ["Sí, inmediatamente", "No durante el mismo período de sesiones", "Nunca más", "Sí, tras un mes"],
+  correcta: 1
+},
+{
+  id: 248,
+  seccion: "Gobierno",
+  nivel: 1,
+  pregunta: "¿Quién puede plantear la cuestión de confianza?",
+  opciones: ["El Congreso", "El Presidente del Gobierno", "El Rey", "Cualquier Ministro"],
+  correcta: 1
+},
+{
+  id: 249,
+  seccion: "Gobierno",
+  nivel: 2,
+  pregunta: "¿Ante quién plantea el Presidente la cuestión de confianza?",
+  opciones: ["El Senado", "El Congreso", "Las Cortes Generales", "El Rey"],
+  correcta: 1
+},
+{
+  id: 250,
+  seccion: "Gobierno",
+  nivel: 2,
+  pregunta: "¿Debe debatirse la cuestión de confianza en el Congreso?",
+  opciones: ["No", "Sí, tras su planteamiento", "Solo si lo pide el Congreso", "Es opcional"],
+  correcta: 1
+},
+{
+  id: 251,
+  seccion: "Gobierno",
+  nivel: 2,
+  pregunta: "¿Qué mayoría se requiere para otorgar la confianza?",
+  opciones: ["Mayoría absoluta", "Mayoría simple de los Diputados", "Dos tercios", "Tres quintos"],
+  correcta: 1
+},
+{
+  id: 252,
+  seccion: "Gobierno",
+  nivel: 2,
+  pregunta: "Si se niega la confianza, ¿qué debe hacer el Presidente?",
+  opciones: ["Continuar", "Presentar su dimisión al Rey", "Pedir otra votación", "Convocar elecciones"],
+  correcta: 1
+},
+{
+  id: 253,
+  seccion: "Gobierno",
+  nivel: 2,
+  pregunta: "¿Puede presentarse una moción de censura durante la tramitación de una cuestión de confianza?",
+  opciones: ["Sí", "No", "Solo con autorización del Rey", "Solo tras la votación"],
+  correcta: 1
+},
+{
+  id: 254,
+  seccion: "Gobierno",
+  nivel: 2,
+  pregunta: "¿Puede el Presidente proponer la disolución del Congreso?",
+  opciones: ["No", "Sí, bajo su exclusiva responsabilidad", "Solo con autorización del Rey", "Solo tras moción de censura"],
+  correcta: 1
+},
+{
+  id: 255,
+  seccion: "Gobierno",
+  nivel: 2,
+  pregunta: "¿Puede el Presidente proponer la disolución del Senado?",
+  opciones: ["No", "Sí", "Solo del Congreso", "Solo de ambas Cámaras a la vez"],
+  correcta: 1
+},
+{
+  id: 256,
+  seccion: "Gobierno",
+  nivel: 2,
+  pregunta: "¿Debe motivarse el decreto de disolución?",
+  opciones: ["No", "Sí", "Es opcional", "Solo en casos excepcionales"],
+  correcta: 1
+},
+{
+  id: 257,
+  seccion: "Gobierno",
+  nivel: 2,
+  pregunta: "¿Puede disolverse el Congreso durante el primer año de mandato?",
+  opciones: ["Sí", "No, salvo excepciones previstas en el artículo 99", "Nunca", "Solo con autorización del Rey"],
+  correcta: 1
+},
+{
+  id: 258,
+  seccion: "Gobierno",
+  nivel: 2,
+  pregunta: "¿Puede disolverse el Congreso estando en tramitación una moción de censura?",
+  opciones: ["Sí", "No", "Solo si lo autoriza el Rey", "Solo tras la votación"],
+  correcta: 1
+},
+{
+  id: 259,
+  seccion: "Gobierno",
+  nivel: 2,
+  pregunta: "¿Cuántas veces puede proponerse la disolución durante el mandato?",
+  opciones: ["Ilimitadas", "No más de una con el mismo fundamento", "Solo una vez", "Dos veces"],
+  correcta: 1
+},
+{
+  id: 260,
+  seccion: "Gobierno",
+  nivel: 2,
+  pregunta: "¿Cesa el Gobierno tras celebrarse elecciones?",
+  opciones: ["Sí, inmediatamente", "Sí, pero continúa en funciones hasta la toma de posesión del nuevo", "No", "Solo si pierde"],
+  correcta: 1
+},
+{
+  id: 261,
+  seccion: "Gobierno",
+  nivel: 2,
+  pregunta: "¿Cesa el Gobierno si pierde la confianza parlamentaria?",
+  opciones: ["No", "Sí", "Solo en moción de censura", "Solo en cuestión de confianza"],
+  correcta: 1
+},
+{
+  id: 262,
+  seccion: "Gobierno",
+  nivel: 2,
+  pregunta: "¿Cesa el Gobierno por dimisión del Presidente?",
+  opciones: ["No", "Sí", "Solo si lo acepta el Rey", "Solo si lo aprueba el Congreso"],
+  correcta: 1
+},
+{
+  id: 263,
+  seccion: "Gobierno",
+  nivel: 2,
+  pregunta: "¿Cesa el Gobierno por fallecimiento del Presidente?",
+  opciones: ["No", "Sí", "Continúa con el Vicepresidente", "Lo decide el Rey"],
+  correcta: 1
+},
+{
+  id: 264,
+  seccion: "Gobierno",
+  nivel: 2,
+  pregunta: "Si cesa el Gobierno, ¿continúa en funciones?",
+  opciones: ["No", "Sí, hasta la toma de posesión del nuevo", "Solo 48 horas", "Solo si lo autoriza el Rey"],
+  correcta: 1
+},
+{
+  id: 265,
+  seccion: "Gobierno",
+  nivel: 1,
+  pregunta: "¿Puede el Gobierno dictar decretos-leyes?",
+  opciones: ["No", "Sí, en caso de extraordinaria y urgente necesidad", "Siempre", "Solo con autorización del Rey"],
+  correcta: 1
+},
+{
+  id: 266,
+  seccion: "Gobierno",
+  nivel: 2,
+  pregunta: "¿Pueden los decretos-leyes afectar a derechos fundamentales del Título I?",
+  opciones: ["Sí", "No", "Solo algunos", "Con autorización del Congreso"],
+  correcta: 1
+},
+{
+  id: 267,
+  seccion: "Gobierno",
+  nivel: 2,
+  pregunta: "¿Pueden los decretos-leyes afectar a instituciones básicas del Estado?",
+  opciones: ["Sí", "No", "Solo en emergencias", "Con autorización del Rey"],
+  correcta: 1
+},
+{
+  id: 268,
+  seccion: "Gobierno",
+  nivel: 2,
+  pregunta: "¿Pueden los decretos-leyes regular el régimen electoral?",
+  opciones: ["Sí", "No", "Solo parcialmente", "Con autorización de las Cortes"],
+  correcta: 1
+},
+{
+  id: 269,
+  seccion: "Gobierno",
+  nivel: 2,
+  pregunta: "¿Deben someterse los decretos-leyes al Congreso?",
+  opciones: ["No", "Sí, inmediatamente para debate y votación", "Solo si lo pide el Congreso", "Tras 30 días"],
+  correcta: 1
+},
+{
+  id: 270,
+  seccion: "Gobierno",
+  nivel: 2,
+  pregunta: "¿En qué plazo debe el Congreso pronunciarse sobre un decreto-ley?",
+  opciones: ["15 días", "30 días", "60 días", "No hay plazo"],
+  correcta: 1
+},
+{
+  id: 271,
+  seccion: "Gobierno",
+  nivel: 2,
+  pregunta: "¿Puede el Congreso tramitar un decreto-ley como proyecto de ley?",
+  opciones: ["No", "Sí, por el procedimiento de urgencia", "Solo si lo pide el Gobierno", "Siempre debe hacerlo"],
+  correcta: 1
+},
+{
+  id: 272,
+  seccion: "Gobierno",
+  nivel: 2,
+  pregunta: "¿Puede el Gobierno solicitar delegación legislativa a las Cortes?",
+  opciones: ["No", "Sí, mediante leyes de bases o textos articulados", "Solo en emergencias", "Solo del Rey"],
+  correcta: 1
+},
+{
+  id: 273,
+  seccion: "Gobierno",
+  nivel: 2,
+  pregunta: "¿Puede delegarse mediante ley ordinaria?",
+  opciones: ["No, solo mediante ley de bases", "Sí, si su objeto es la formación de textos articulados", "Nunca", "Solo con ley orgánica"],
+  correcta: 1
+},
+{
+  id: 274,
+  seccion: "Gobierno",
+  nivel: 2,
+  pregunta: "¿Debe la delegación legislativa otorgarse de forma expresa?",
+  opciones: ["No", "Sí, para materia concreta y con plazo", "Solo la materia", "Es implícita"],
+  correcta: 1
+},
+{
+  id: 275,
+  seccion: "Gobierno",
+  nivel: 2,
+  pregunta: "¿Se agota la delegación legislativa con su uso?",
+  opciones: ["No", "Sí, por el uso o al cumplir el plazo", "Solo por el plazo", "Es permanente"],
+  correcta: 1
+},
+{
+  id: 276,
+  seccion: "Gobierno",
+  nivel: 2,
+  pregunta: "¿Puede subdelegarse la delegación legislativa?",
+  opciones: ["Sí", "No", "Solo con autorización", "Solo en casos urgentes"],
+  correcta: 1
+},
+{
+  id: 277,
+  seccion: "Gobierno",
+  nivel: 2,
+  pregunta: "¿Qué deben contener las leyes de bases?",
+  opciones: ["El articulado completo", "El objeto, alcance, principios y criterios", "Solo el objeto", "Solo el plazo"],
+  correcta: 1
+},
+{
+  id: 278,
+  seccion: "Gobierno",
+  nivel: 2,
+  pregunta: "¿Puede la ley de bases facultar para dictar normas retroactivas?",
+  opciones: ["Sí", "No, salvo que lo autorice una ley orgánica", "Siempre", "Nunca"],
+  correcta: 1
+},
+{
+  id: 279,
+  seccion: "Gobierno",
+  nivel: 2,
+  pregunta: "¿Cómo se denominan las normas dictadas por delegación?",
+  opciones: ["Decretos", "Decretos Legislativos", "Decretos-Leyes", "Reglamentos"],
+  correcta: 1
+},
+{
+  id: 280,
+  seccion: "Gobierno",
+  nivel: 2,
+  pregunta: "¿Pueden impugnarse los decretos legislativos ante los Tribunales?",
+  opciones: ["No", "Sí, cuando contravengan la ley de delegación", "Nunca", "Solo ante el Constitucional"],
+  correcta: 1
+},
+{
+  id: 281,
+  seccion: "Gobierno",
+  nivel: 2,
+  pregunta: "¿Puede el Gobierno aprobar sus propios reglamentos?",
+  opciones: ["No", "Sí, y los reglamentos de ejecución de las leyes", "Solo los del Estado", "Solo con autorización"],
+  correcta: 1
+},
+{
+  id: 282,
+  seccion: "Gobierno",
+  nivel: 2,
+  pregunta: "¿Quién refrenda los decretos del Gobierno?",
+  opciones: ["El Rey", "El Presidente del Gobierno o los Ministros competentes", "El Congreso", "El Presidente del Congreso"],
+  correcta: 1
+},
+{
+  id: 283,
+  seccion: "Gobierno",
+  nivel: 2,
+  pregunta: "¿Puede un Ministro ser Diputado o Senador simultáneamente?",
+  opciones: ["No, es incompatible", "Sí", "Solo Diputado", "Solo con permiso del Rey"],
+  correcta: 1
+},
+{
+  id: 284,
+  seccion: "Gobierno",
+  nivel: 2,
+  pregunta: "¿Pueden las Cámaras reclamar información al Gobierno?",
+  opciones: ["No", "Sí, y el Gobierno debe facilitarla", "Solo el Congreso", "Solo en casos excepcionales"],
+  correcta: 1
+},
+{
+  id: 285,
+  seccion: "Gobierno",
+  nivel: 2,
+  pregunta: "¿Tienen los miembros del Gobierno acceso a las sesiones de las Cámaras?",
+  opciones: ["No", "Sí, y pueden solicitar ser oídos", "Solo si son parlamentarios", "Solo el Presidente"],
+  correcta: 1
+},
+{
+  id: 286,
+  seccion: "Gobierno",
+  nivel: 1,
+  pregunta: "¿Puede el Gobierno legislar sin autorización de las Cortes?",
+  opciones: ["Sí, siempre", "Solo mediante decretos-leyes en casos de urgencia", "Nunca", "Solo en estado de excepción"],
+  correcta: 1
+},
+{
+  id: 287,
+  seccion: "Gobierno",
+  nivel: 2,
+  pregunta: "¿Debe el Gobierno dar cuenta al Congreso de los tratados internacionales?",
+  opciones: ["No", "Sí, según lo establecido en la Constitución", "Solo de los más importantes", "Solo al Senado"],
+  correcta: 1
+},
+{
+  id: 288,
+  seccion: "Gobierno",
+  nivel: 2,
+  pregunta: "¿Aprueba el Gobierno los Presupuestos Generales del Estado?",
+  opciones: ["Sí, directamente", "No, los elabora y los remite a las Cortes para su aprobación", "Los aprueba el Rey", "Los aprueba solo el Congreso"],
+  correcta: 1
+},
+{
+  id: 289,
+  seccion: "Gobierno",
+  nivel: 2,
+  pregunta: "¿Puede convocar el Presidente del Gobierno un referéndum consultivo?",
+  opciones: ["Sí, libremente", "Sí, previa autorización del Congreso", "No, solo el Rey", "Solo en reforma constitucional"],
+  correcta: 1
+},
+{
+  id: 290,
+  seccion: "Gobierno",
+  nivel: 2,
+  pregunta: "¿En qué Título de la Constitución se regula el Gobierno?",
+  opciones: ["Título III", "Título IV", "Título V", "Título VI"],
+  correcta: 1
+},
+/* =========================
+   PODER JUDICIAL
+========================= */
+{
+id: 290,
+seccion: "Poder Judicial",
+nivel: 1,
+pregunta: "¿Quién administra la justicia?",
+opciones: ["El Rey", "Los jueces y magistrados", "El Gobierno", "Las Cortes"],
+correcta: 1
+},
+{
+  id: 291,
+  seccion: "Poder Judicial",
+  nivel: 1,
+  pregunta: "¿En nombre de quién se administra la justicia?",
+  opciones: ["Del Gobierno", "Del Rey", "Del pueblo", "De las Cortes"],
+  correcta: 1
+},
+{
+  id: 292,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿En qué Título se regula el Poder Judicial?",
+  opciones: ["Título IV", "Título V", "Título VI", "Título VII"],
+  correcta: 2
+},
+{
+  id: 293,
+  seccion: "Poder Judicial",
+  nivel: 1,
+  pregunta: "¿De quién emana la justicia?",
+  opciones: ["Del Rey", "Del pueblo", "Del Gobierno", "De las Cortes"],
+  correcta: 1
+},
+{
+  id: 294,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Son los jueces y magistrados independientes?",
+  opciones: ["No", "Sí, inamovibles, responsables y sometidos al imperio de la ley", "Solo independientes", "Solo inamovibles"],
+  correcta: 1
+},
+{
+  id: 295,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿A qué están sometidos los jueces?",
+  opciones: ["Al Rey", "Únicamente al imperio de la ley", "Al Gobierno", "Al CGPJ"],
+  correcta: 1
+},
+{
+  id: 296,
+  seccion: "Poder Judicial",
+  nivel: 1,
+  pregunta: "¿Son inamovibles los jueces y magistrados?",
+  opciones: ["No", "Sí", "Solo los magistrados", "Solo con 20 años de servicio"],
+  correcta: 1
+},
+{
+  id: 297,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Pueden ser separados, suspendidos, trasladados o jubilados los jueces?",
+  opciones: ["Sí, libremente", "Solo por las causas y con las garantías previstas en la ley", "No, nunca", "Solo por el CGPJ"],
+  correcta: 1
+},
+{
+  id: 298,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Es responsable el juez que actúa con dolo o culpa?",
+  opciones: ["No", "Sí", "Solo civilmente", "Solo penalmente"],
+  correcta: 1
+},
+{
+  id: 299,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Puede exigirse responsabilidad al Estado por error judicial?",
+  opciones: ["No", "Sí, en los términos que establezca la ley", "Solo en casos penales", "Solo con sentencia firme"],
+  correcta: 1
+},
+{
+  id: 300,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Es pública la acción popular en el proceso penal?",
+  opciones: ["No", "Sí, según lo establezca la ley", "Solo para delitos graves", "Solo para españoles"],
+  correcta: 1
+},
+{
+  id: 301,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Cómo se ejerce la justicia?",
+  opciones: ["Por tribunales militares", "Por Juzgados y Tribunales determinados por las leyes", "Por el CGPJ", "Por el Gobierno"],
+  correcta: 1
+},
+{
+  id: 302,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Pueden crearse Tribunales de excepción?",
+  opciones: ["Sí", "No", "Solo en guerra", "Solo con ley orgánica"],
+  correcta: 1
+},
+{
+  id: 303,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Debe motivarse siempre la sentencia?",
+  opciones: ["No", "Sí", "Solo las condenatorias", "Solo en casos penales"],
+  correcta: 1
+},
+{
+  id: 304,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Son públicas las sentencias?",
+  opciones: ["No", "Sí, siempre", "Solo las absolutorias", "Depende del caso"],
+  correcta: 1
+},
+{
+  id: 305,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Es oral el procedimiento?",
+  opciones: ["Siempre", "Preferentemente oral, especialmente en lo criminal", "Nunca", "Solo en lo civil"],
+  correcta: 1
+},
+{
+  id: 306,
+  seccion: "Poder Judicial",
+  nivel: 1,
+  pregunta: "¿Qué órgano es la cúspide del poder judicial?",
+  opciones: ["El CGPJ", "El Tribunal Supremo", "La Audiencia Nacional", "El Tribunal Constitucional"],
+  correcta: 1
+},
+{
+  id: 307,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Tiene el Tribunal Supremo jurisdicción en toda España?",
+  opciones: ["No", "Sí", "Solo en lo penal", "Solo en ciertas materias"],
+  correcta: 1
+},
+{
+  id: 308,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Es el Tribunal Supremo el órgano jurisdiccional superior?",
+  opciones: ["No", "Sí, en todos los órdenes salvo lo dispuesto en materia de garantías constitucionales", "Solo en lo penal", "No, es el Constitucional"],
+  correcta: 1
+},
+{
+  id: 309,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Quién determina la constitución, funcionamiento y gobierno de los Juzgados?",
+  opciones: ["El CGPJ", "La ley orgánica del Poder Judicial", "El Gobierno", "Cada Comunidad Autónoma"],
+  correcta: 1
+},
+{
+  id: 310,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Quién determina el estatuto jurídico de jueces y magistrados?",
+  opciones: ["El CGPJ", "La ley orgánica del Poder Judicial", "El Gobierno", "El Rey"],
+  correcta: 1
+},
+{
+  id: 311,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Existe jurisdicción militar?",
+  opciones: ["No", "Sí, en el ámbito estrictamente castrense", "Sí, sin restricciones", "Solo en tiempo de guerra"],
+  correcta: 1
+},
+{
+  id: 312,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Puede la jurisdicción militar aplicarse en estado de sitio?",
+  opciones: ["No", "Sí, según lo dispuesto en la ley orgánica", "Siempre", "Nunca"],
+  correcta: 1
+},
+{
+  id: 313,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Pueden existir Tribunales consuetudinarios?",
+  opciones: ["No", "Sí, como Tribunales de aguas o jurados tradicionales", "Solo en ciertas regiones", "Solo con ley orgánica"],
+  correcta: 1
+},
+{
+  id: 314,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Se regula la participación ciudadana en la justicia?",
+  opciones: ["No", "Sí, mediante la institución del Jurado y Tribunales consuetudinarios", "Solo con el Jurado", "No está prevista"],
+  correcta: 1
+},
+{
+  id: 315,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿En qué tipo de procesos puede participar el Jurado?",
+  opciones: ["En todos", "En los penales que la ley determine", "Solo en lo civil", "En ninguno"],
+  correcta: 1
+},
+{
+  id: 316,
+  seccion: "Poder Judicial",
+  nivel: 1,
+  pregunta: "¿Qué es el Consejo General del Poder Judicial?",
+  opciones: ["Un tribunal", "El órgano de gobierno del Poder Judicial", "Un ministerio", "Una comisión parlamentaria"],
+  correcta: 1
+},
+{
+  id: 317,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Quién preside el CGPJ?",
+  opciones: ["Un vocal elegido", "El Presidente del Tribunal Supremo", "El Ministro de Justicia", "El Rey"],
+  correcta: 1
+},
+{
+  id: 318,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Cuántos miembros tiene el CGPJ?",
+  opciones: ["15", "20", "21", "25"],
+  correcta: 1
+},
+{
+  id: 319,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Quién elige a los miembros del CGPJ?",
+  opciones: ["El Rey", "Las Cortes Generales", "Los jueces", "El Gobierno"],
+  correcta: 1
+},
+{
+  id: 320,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Cuántos miembros del CGPJ son elegidos entre jueces y magistrados?",
+  opciones: ["10", "12", "15", "20"],
+  correcta: 1
+},
+{
+  id: 321,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Cuántos miembros del CGPJ son elegidos entre juristas de reconocida competencia?",
+  opciones: ["4", "8", "10", "12"],
+  correcta: 1
+},
+{
+  id: 322,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Cuál es el mandato de los miembros del CGPJ?",
+  opciones: ["3 años", "4 años", "5 años", "6 años"],
+  correcta: 2
+},
+{
+  id: 323,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Es renovable el mandato de los miembros del CGPJ?",
+  opciones: ["Sí, indefinidamente", "No", "Sí, una vez", "Sí, dos veces"],
+  correcta: 1
+},
+{
+  id: 324,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Quién nombra al Presidente del CGPJ?",
+  opciones: ["Las Cortes", "El Rey, a propuesta del CGPJ", "El Gobierno", "Los jueces"],
+  correcta: 1
+},
+{
+  id: 325,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Quién nombra al Presidente del Tribunal Supremo?",
+  opciones: ["Las Cortes", "El Rey, a propuesta del CGPJ", "El CGPJ", "El Congreso"],
+  correcta: 1
+},
+{
+  id: 326,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Quién propone el nombramiento del Fiscal General del Estado?",
+  opciones: ["El CGPJ", "El Gobierno, oído el CGPJ", "El Rey", "Las Cortes"],
+  correcta: 1
+},
+{
+  id: 327,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Quién nombra al Fiscal General del Estado?",
+  opciones: ["El Gobierno", "El Rey", "El CGPJ", "Las Cortes"],
+  correcta: 1
+},
+{
+  id: 328,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Qué representa el Ministerio Fiscal?",
+  opciones: ["Al Gobierno", "La legalidad", "A la víctima", "Al Estado"],
+  correcta: 1
+},
+{
+  id: 329,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Qué vela el Ministerio Fiscal?",
+  opciones: ["Por el Gobierno", "Por la independencia de los Tribunales", "Por los intereses del Estado", "Por la seguridad"],
+  correcta: 1
+},
+{
+  id: 330,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Promueve el Ministerio Fiscal la acción de la justicia?",
+  opciones: ["No", "Sí, en defensa de la legalidad y del interés público", "Solo en lo penal", "Solo si se lo pide el juez"],
+  correcta: 1
+},
+{
+  id: 331,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Puede el Ministerio Fiscal defender los derechos de los ciudadanos?",
+  opciones: ["No", "Sí", "Solo en lo penal", "Solo si no tienen abogado"],
+  correcta: 1
+},
+{
+  id: 332,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Cómo ejerce el Ministerio Fiscal sus funciones?",
+  opciones: ["Con total independencia", "Con autonomía funcional y sometido a legalidad", "Según el Gobierno", "Según el CGPJ"],
+  correcta: 1
+},
+{
+  id: 333,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Se organiza el Ministerio Fiscal con principios de unidad?",
+  opciones: ["No", "Sí, unidad de actuación y dependencia jerárquica", "Solo unidad", "Es completamente independiente"],
+  correcta: 1
+},
+{
+  id: 334,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Qué ley regula el Ministerio Fiscal?",
+  opciones: ["Ley ordinaria", "Ley orgánica", "Decreto ley", "Real Decreto"],
+  correcta: 1
+},
+{
+  id: 335,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Qué ley regula el estatuto de los Fiscales?",
+  opciones: ["Ley ordinaria", "Ley orgánica", "Real Decreto", "Ley autonómica"],
+  correcta: 1
+},
+{
+  id: 336,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Se establece la gratuidad de la justicia?",
+  opciones: ["No", "Sí, cuando así lo disponga la ley", "Siempre", "Solo para indigentes"],
+  correcta: 1
+},
+{
+  id: 337,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿En qué casos es gratuita la justicia?",
+  opciones: ["Siempre", "Para quienes acrediten insuficiencia de recursos", "Solo en lo penal", "Nunca"],
+  correcta: 1
+},
+{
+  id: 338,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿La justicia gratuita incluye la defensa y representación?",
+  opciones: ["No", "Sí", "Solo defensa", "Solo representación"],
+  correcta: 1
+},
+{
+  id: 339,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Pueden exigirse tasas judiciales?",
+  opciones: ["Sí, siempre", "Según lo disponga la ley", "No", "Solo en lo civil"],
+  correcta: 1
+},
+{
+  id: 340,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Puede el CGPJ nombrar jueces?",
+  opciones: ["No", "Sí", "Solo magistrados", "Solo con propuesta del Gobierno"],
+  correcta: 1
+},
+{
+  id: 341,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Puede el CGPJ ascender jueces?",
+  opciones: ["No", "Sí", "Solo el Ministerio de Justicia", "Solo las Cortes"],
+  correcta: 1
+},
+{
+  id: 342,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Inspecciona el CGPJ a Juzgados y Tribunales?",
+  opciones: ["No", "Sí", "Solo el Ministerio de Justicia", "Solo a petición"],
+  correcta: 1
+},
+{
+  id: 343,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Ejerce el CGPJ funciones disciplinarias?",
+  opciones: ["No", "Sí", "Solo el Tribunal Supremo", "Solo en casos graves"],
+  correcta: 1
+},
+{
+  id: 344,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Puede existir un defensor del pueblo en las Comunidades Autónomas?",
+  opciones: ["No", "Sí", "Solo en las históricas", "Solo con autorización estatal"],
+  correcta: 1
+},
+{
+  id: 345,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Forma parte el Poder Judicial de la división de poderes?",
+  opciones: ["No", "Sí", "Solo parcialmente", "Depende del Rey"],
+  correcta: 1
+},
+{
+  id: 346,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Se rige el acceso a la carrera judicial por principios de mérito?",
+  opciones: ["No", "Sí, mérito y capacidad", "Solo antigüedad", "Por nombramiento político"],
+  correcta: 1
+},
+{
+  id: 347,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Pueden los jueces pertenecer a partidos políticos?",
+  opciones: ["Sí", "No, mientras permanezcan en activo", "Solo fuera del servicio", "Con autorización del CGPJ"],
+  correcta: 1
+},
+{
+  id: 348,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Pueden los jueces pertenecer a sindicatos?",
+  opciones: ["No", "Sí, a asociaciones profesionales", "Sí, sin restricción", "Solo con autorización"],
+  correcta: 1
+},
+{
+  id: 349,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Pueden ir a la huelga los jueces?",
+  opciones: ["Sí", "No", "Solo en casos excepcionales", "Con autorización del CGPJ"],
+  correcta: 1
+},
+{
+  id: 350,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Resuelve el Tribunal Supremo los recursos de casación?",
+  opciones: ["No", "Sí", "Solo en lo penal", "Solo en lo civil"],
+  correcta: 1
+},
+{
+  id: 351,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Unifica el Tribunal Supremo la doctrina?",
+  opciones: ["No", "Sí", "Solo en casos específicos", "Lo hace el CGPJ"],
+  correcta: 1
+},
+{
+  id: 352,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Existen Tribunales Superiores de Justicia en las Comunidades Autónomas?",
+  opciones: ["No", "Sí", "Solo en las históricas", "Solo en algunas"],
+  correcta: 1
+},
+{
+  id: 353,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Culminan los TSJ la organización judicial en las Comunidades?",
+  opciones: ["No", "Sí, sin perjuicio del Tribunal Supremo", "Solo en ciertas materias", "Depende del Estatuto"],
+  correcta: 1
+},
+{
+  id: 354,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Pueden las Comunidades Autónomas crear tribunales?",
+  opciones: ["Sí", "No", "Solo juzgados", "Con autorización estatal"],
+  correcta: 1
+},
+{
+  id: 355,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Son ejecutables las sentencias judiciales?",
+  opciones: ["No siempre", "Sí, en sus propios términos", "Solo las penales", "Solo con autorización"],
+  correcta: 1
+},
+{
+  id: 356,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Deben colaborar las autoridades con los Tribunales?",
+  opciones: ["No", "Sí, en la ejecución de sentencias", "Solo si quieren", "Solo las policiales"],
+  correcta: 1
+},
+{
+  id: 357,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Puede sancionarse el incumplimiento de colaboración judicial?",
+  opciones: ["No", "Sí, en los términos que la ley establezca", "Solo advertencias", "Solo multas"],
+  correcta: 1
+},
+{
+  id: 358,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Existe responsabilidad del Estado por funcionamiento anormal de la justicia?",
+  opciones: ["No", "Sí", "Solo por error judicial", "Solo en lo penal"],
+  correcta: 1
+},
+{
+  id: 359,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Tiene derecho a indemnización quien sufra prisión preventiva y luego es absuelto?",
+  opciones: ["No", "Sí, cuando la sentencia reconozca que hubo error judicial", "Siempre", "Solo en casos graves"],
+  correcta: 1
+},
+{
+  id: 360,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Quién elabora los presupuestos del Poder Judicial?",
+  opciones: ["El Gobierno", "El CGPJ", "El Tribunal Supremo", "El Ministerio de Justicia"],
+  correcta: 1
+},
+{
+  id: 361,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Tienen presupuesto propio los Juzgados y Tribunales?",
+  opciones: ["No", "Sí, en los Presupuestos Generales del Estado", "Solo el Tribunal Supremo", "Cada uno por separado"],
+  correcta: 1
+},
+{
+  id: 362,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Qué principio rige la organización judicial?",
+  opciones: ["Jerarquía", "Unidad jurisdiccional", "Descentralización", "Autonomía"],
+  correcta: 1
+},
+{
+  id: 363,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Existe demarcación judicial específica?",
+  opciones: ["No, coincide con provincias", "Sí, puede ser propia", "Solo en grandes ciudades", "Depende de la Comunidad"],
+  correcta: 1
+},
+{
+  id: 364,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Cuántos órdenes jurisdiccionales existen?",
+  opciones: ["2", "3", "4", "5"],
+  correcta: 2
+},
+{
+  id: 365,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Cuáles son los órdenes jurisdiccionales?",
+  opciones: ["Civil y Penal", "Civil, Penal, Contencioso-administrativo y Social", "Civil, Penal y Social", "Solo Civil y Penal"],
+  correcta: 1
+},
+{
+  id: 366,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Puede un juez rechazar juzgar un caso por motivos políticos?",
+  opciones: ["Sí", "No, no pueden excusarse de juzgar", "Solo en casos excepcionales", "Con autorización del CGPJ"],
+  correcta: 1
+},
+{
+  id: 367,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Es obligatoria la asistencia letrada en procesos penales?",
+  opciones: ["No", "Sí", "Solo en casos graves", "Es opcional"],
+  correcta: 1
+},
+{
+  id: 368,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Se garantiza la defensa gratuita a quien carece de recursos?",
+  opciones: ["No", "Sí, mediante abogados de oficio", "Solo en lo penal", "Es opcional"],
+  correcta: 1
+},
+{
+  id: 369,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Puede el juez actuar de oficio en materia penal?",
+  opciones: ["No, solo a instancia de parte", "Sí, puede iniciar actuaciones", "Solo el Ministerio Fiscal", "Solo con denuncia"],
+  correcta: 1
+},
+{
+  id: 370,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Existe el recurso de amparo ante tribunales ordinarios?",
+  opciones: ["No, solo ante el Constitucional", "Sí, debe agotarse la vía judicial ordinaria antes", "No existe", "Solo en casos especiales"],
+  correcta: 1
+},
+{
+  id: 371,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Se reconoce el derecho a un proceso sin dilaciones indebidas?",
+  opciones: ["No", "Sí", "Solo en lo penal", "Es un objetivo, no un derecho"],
+  correcta: 1
+},
+{
+  id: 372,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Se presume la inocencia?",
+  opciones: ["No", "Sí, hasta que haya sentencia condenatoria", "Solo en casos leves", "Depende del delito"],
+  correcta: 1
+},
+{
+  id: 373,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Puede dictarse sentencia sin que el acusado haya tenido defensa?",
+  opciones: ["Sí, en casos urgentes", "No, es nula", "Depende del caso", "Con autorización judicial"],
+  correcta: 1
+},
+{
+  id: 374,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Es el CGPJ un órgano constitucional?",
+  opciones: ["No", "Sí", "Es solo administrativo", "Depende del Gobierno"],
+  correcta: 1
+},
+{
+  id: 375,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Puede el Gobierno destituir a un juez?",
+  opciones: ["Sí", "No", "Solo por delito grave", "Con acuerdo del CGPJ"],
+  correcta: 1
+},
+{
+  id: 376,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Quién gestiona los medios materiales de la Administración de Justicia?",
+  opciones: ["El CGPJ", "El Ministerio de Justicia y las CCAA con competencias", "Solo el Estado", "Cada tribunal"],
+  correcta: 1
+},
+{
+  id: 377,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Pueden las CCAA asumir competencias en medios materiales de la justicia?",
+  opciones: ["No", "Sí, según sus Estatutos", "Solo las históricas", "Con autorización estatal"],
+  correcta: 1
+},
+{
+  id: 378,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Existe Policía Judicial?",
+  opciones: ["No", "Sí, bajo dependencia de jueces y fiscales", "Solo nacional", "Es independiente"],
+  correcta: 1
+},
+{
+  id: 379,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Pueden intervenir las Comunidades Autónomas en el nombramiento de jueces?",
+  opciones: ["Sí, libremente", "No, es competencia exclusiva del Estado", "Solo en sus territorios", "Con autorización del CGPJ"],
+  correcta: 1
+},
+{
+  id: 380,
+  seccion: "Poder Judicial",
+  nivel: 2,
+  pregunta: "¿Se garantiza la tutela judicial efectiva?",
+  opciones: ["No", "Sí, sin que pueda producirse indefensión", "Solo en lo penal", "Solo para españoles"],
+  correcta: 1
+},
+/* =========================
+   ORGANIZACIÓN TERRITORIAL
+========================= */
+{
+id: 381,
+seccion: "Organización Territorial",
+nivel: 1,
+pregunta: "¿Cómo se organiza territorialmente el Estado?",
+opciones: ["Municipios, provincias y comunidades autónomas", "Regiones y estados", "Distritos y regiones", "Cantones"],
+correcta: 0
+},
+{
+  id: 382,
+  seccion: "Organización Territorial",
+  nivel: 2,
+  pregunta: "¿En qué Título se regula la organización territorial del Estado?",
+  opciones: ["Título VI", "Título VII", "Título VIII", "Título IX"],
+  correcta: 2
+},
+{
+  id: 383,
+  seccion: "Organización Territorial",
+  nivel: 1,
+  pregunta: "¿Se fundamenta el Estado en la unidad de la Nación española?",
+  opciones: ["No", "Sí", "Solo en la diversidad", "En la autonomía"],
+  correcta: 1
+},
+{
+  id: 384,
+  seccion: "Organización Territorial",
+  nivel: 1,
+  pregunta: "¿Reconoce la Constitución el derecho a la autonomía?",
+  opciones: ["No", "Sí, de las nacionalidades y regiones", "Solo de las regiones", "Solo de las nacionalidades"],
+  correcta: 1
+},
+{
+  id: 385,
+  seccion: "Organización Territorial",
+  nivel: 2,
+  pregunta: "¿Garantiza la Constitución la solidaridad entre todas las partes del territorio?",
+  opciones: ["No", "Sí", "Solo económica", "Es opcional"],
+  correcta: 1
+},
+{
+  id: 386,
+  seccion: "Organización Territorial",
+  nivel: 2,
+  pregunta: "¿Puede haber privilegios económicos entre territorios?",
+  opciones: ["Sí", "No", "Solo históricos", "Con autorización"],
+  correcta: 1
+},
+{
+  id: 387,
+  seccion: "Organización Territorial",
+  nivel: 2,
+  pregunta: "¿Pueden establecerse diferencias entre Estatutos de Autonomía?",
+  opciones: ["No, todos iguales", "Sí, pero no implicarán privilegios económicos", "Solo las históricas", "Libremente"],
+  correcta: 1
+},
+{
+  id: 388,
+  seccion: "Organización Territorial",
+  nivel: 1,
+  pregunta: "¿Qué es el municipio?",
+  opciones: ["Una región", "La entidad básica de la organización territorial", "Una provincia", "Una comarca"],
+  correcta: 1
+},
+{
+  id: 389,
+  seccion: "Organización Territorial",
+  nivel: 2,
+  pregunta: "¿Tiene el municipio personalidad jurídica propia?",
+  opciones: ["No", "Sí, plena", "Solo administrativa", "Depende del tamaño"],
+  correcta: 1
+},
+{
+  id: 390,
+  seccion: "Organización Territorial",
+  nivel: 2,
+  pregunta: "¿Quién gobierna y administra el municipio?",
+  opciones: ["El alcalde solo", "El Ayuntamiento", "La Diputación", "La Comunidad Autónoma"],
+  correcta: 1
+},
+{
+  id: 391,
+  seccion: "Organización Territorial",
+  nivel: 2,
+  pregunta: "¿Cómo se eligen los Concejales?",
+  opciones: ["Por el alcalde", "Por sufragio universal, libre, igual, directo y secreto", "Por la provincia", "Por la Comunidad"],
+  correcta: 1
+},
+{
+  id: 392,
+  seccion: "Organización Territorial",
+  nivel: 2,
+  pregunta: "¿Cómo se eligen los Alcaldes?",
+  opciones: ["Por el pueblo directamente", "Por los Concejales o por los vecinos", "Por el Gobierno", "Por la Diputación"],
+  correcta: 1
+},
+{
+  id: 393,
+  seccion: "Organización Territorial",
+  nivel: 2,
+  pregunta: "¿Qué ley regula el régimen local?",
+  opciones: ["Ley ordinaria", "Ley orgánica", "Decreto-ley", "Real Decreto"],
+  correcta: 1
+},
+{
+  id: 394,
+  seccion: "Organización Territorial",
+  nivel: 1,
+  pregunta: "¿Qué es la provincia?",
+  opciones: ["Una comunidad autónoma", "Una entidad local con personalidad jurídica propia", "Un municipio grande", "Una región"],
+  correcta: 1
+},
+{
+  id: 395,
+  seccion: "Organización Territorial",
+  nivel: 2,
+  pregunta: "¿Cuál es el órgano de gobierno de la provincia?",
+  opciones: ["El Gobernador", "La Diputación u otra corporación de carácter representativo", "El Presidente autonómico", "El Delegado del Gobierno"],
+  correcta: 1
+},
+{
+  id: 396,
+  seccion: "Organización Territorial",
+  nivel: 2,
+  pregunta: "¿Pueden agruparse municipios diferentes de la provincia?",
+  opciones: ["No", "Sí", "Solo con autorización estatal", "Solo en la misma provincia"],
+  correcta: 1
+},
+{
+  id: 397,
+  seccion: "Organización Territorial",
+  nivel: 2,
+  pregunta: "¿Pueden crearse agrupaciones de municipios?",
+  opciones: ["No", "Sí", "Solo comarcas", "Solo mancomunidades"],
+  correcta: 1
+},
+{
+  id: 398,
+  seccion: "Organización Territorial",
+  nivel: 2,
+  pregunta: "¿Puede modificarse la delimitación provincial?",
+  opciones: ["Sí, libremente", "Sí, mediante ley orgánica", "No", "Solo con referéndum"],
+  correcta: 1
+},
+{
+  id: 399,
+  seccion: "Organización Territorial",
+  nivel: 2,
+  pregunta: "¿Pueden los archipiélagos tener administración propia?",
+  opciones: ["No", "Sí, en forma de Cabildos o Consejos", "Solo Canarias", "Solo Baleares"],
+  correcta: 1
+},
+{
+  id: 400,
+  seccion: "Organización Territorial",
+  nivel: 1,
+  pregunta: "¿Quién puede acceder a la autonomía?",
+  opciones: ["Cualquier territorio", "Provincias limítrofes con características comunes, territorios insulares y provincias con entidad regional histórica", "Solo nacionalidades históricas", "Solo regiones"],
+  correcta: 1
+},
+{
+  id: 401,
+  seccion: "Organización Territorial",
+  nivel: 2,
+  pregunta: "¿Cuántas provincias como mínimo deben formar una Comunidad Autónoma?",
+  opciones: ["Una", "Depende del procedimiento", "Dos", "Tres"],
+  correcta: 1
+},
+{
+  id: 402,
+  seccion: "Organización Territorial",
+  nivel: 2,
+  pregunta: "¿Puede una provincia constituir por sí sola una Comunidad Autónoma?",
+  opciones: ["No", "Sí, si tiene entidad regional histórica", "Siempre", "Solo las insulares"],
+  correcta: 1
+},
+{
+  id: 403,
+  seccion: "Organización Territorial",
+  nivel: 2,
+  pregunta: "¿Quién debe tomar la iniciativa del proceso autonómico?",
+  opciones: ["El Gobierno", "Todas las Diputaciones o el órgano interinsular y las 2/3 partes de los municipios", "El Rey", "Las Cortes"],
+  correcta: 1
+},
+{
+  id: 404,
+  seccion: "Organización Territorial",
+  nivel: 2,
+  pregunta: "¿Qué población deben representar los municipios que tomen la iniciativa?",
+  opciones: ["La mitad", "La mayoría del censo electoral", "Un tercio", "Dos tercios"],
+  correcta: 1
+},
+{
+  id: 405,
+  seccion: "Organización Territorial",
+  nivel: 2,
+  pregunta: "¿Comunican las Diputaciones la iniciativa autonómica a alguien?",
+  opciones: ["Al Rey", "Al Gobierno", "Al Congreso", "Al Senado"],
+  correcta: 1
+},
+{
+  id: 406,
+  seccion: "Organización Territorial",
+  nivel: 2,
+  pregunta: "¿Qué es el Estatuto de Autonomía?",
+  opciones: ["Una ley ordinaria", "La norma institucional básica de cada Comunidad Autónoma", "Un reglamento", "Un decreto"],
+  correcta: 1
+},
+{
+  id: 407,
+  seccion: "Organización Territorial",
+  nivel: 2,
+  pregunta: "¿Qué debe contener el Estatuto de Autonomía?",
+  opciones: ["Solo el nombre", "La denominación, delimitación territorial, instituciones y competencias", "Solo competencias", "Solo instituciones"],
+  correcta: 1
+},
+{
+  id: 408,
+  seccion: "Organización Territorial",
+  nivel: 2,
+  pregunta: "¿Quién elabora el proyecto de Estatuto?",
+  opciones: ["El Gobierno", "Una asamblea compuesta por diputados y senadores de la provincia", "Las Cortes", "El Rey"],
+  correcta: 1
+},
+{
+  id: 409,
+  seccion: "Organización Territorial",
+  nivel: 2,
+  pregunta: "¿Quién aprueba el Estatuto de Autonomía?",
+  opciones: ["La Comunidad Autónoma", "Las Cortes Generales mediante ley orgánica", "El Gobierno", "El Rey"],
+  correcta: 1
+},
+{
+  id: 410,
+  seccion: "Organización Territorial",
+  nivel: 2,
+  pregunta: "¿Había territorios con régimen provisional de autonomía antes de la Constitución?",
+  opciones: ["No", "Sí, podían acceder más rápidamente", "Solo Cataluña", "Solo País Vasco"],
+  correcta: 1
+},
+{
+  id: 411,
+  seccion: "Organización Territorial",
+  nivel: 2,
+  pregunta: "¿Cuál es el procedimiento del artículo 151 para acceder a la autonomía?",
+  opciones: ["El ordinario", "El procedimiento rápido que permite más competencias desde el inicio", "El más lento", "No existe"],
+  correcta: 1
+},
+{
+  id: 412,
+  seccion: "Organización Territorial",
+  nivel: 2,
+  pregunta: "En el artículo 151, ¿qué mayoría de municipios debe aprobar la iniciativa?",
+  opciones: ["La mitad", "Las tres cuartas partes", "Dos tercios", "La mayoría absoluta"],
+  correcta: 1
+},
+{
+  id: 413,
+  seccion: "Organización Territorial",
+  nivel: 2,
+  pregunta: "¿Se requiere referéndum en el procedimiento del artículo 151?",
+  opciones: ["No", "Sí, aprobado por mayoría absoluta en cada provincia", "Solo consultivo", "Es opcional"],
+  correcta: 1
+},
+{
+  id: 414,
+  seccion: "Organización Territorial",
+  nivel: 2,
+  pregunta: "Si no prospera la iniciativa del 151, ¿puede reiterarse?",
+  opciones: ["Sí, inmediatamente", "No, hasta transcurridos cinco años", "Nunca", "Al año siguiente"],
+  correcta: 1
+},
+{
+  id: 415,
+  seccion: "Organización Territorial",
+  nivel: 2,
+  pregunta: "¿Pueden las Comunidades Autónomas tener Asamblea Legislativa?",
+  opciones: ["No", "Sí", "Solo las históricas", "Solo con autorización"],
+  correcta: 1
+},
+{
+  id: 416,
+  seccion: "Organización Territorial",
+  nivel: 2,
+  pregunta: "¿Cómo se elige la Asamblea Legislativa autonómica?",
+  opciones: ["Por nombramiento", "Por sufragio universal, libre, igual, directo y secreto", "Por las Cortes", "Por el Presidente"],
+  correcta: 1
+},
+{
+  id: 417,
+  seccion: "Organización Territorial",
+  nivel: 2,
+  pregunta: "¿Deben tener las Comunidades un Consejo de Gobierno?",
+  opciones: ["No", "Sí, con funciones ejecutivas y administrativas", "Es opcional", "Solo las grandes"],
+  correcta: 1
+},
+{
+  id: 418,
+  seccion: "Organización Territorial",
+  nivel: 2,
+  pregunta: "¿Quién dirige el Consejo de Gobierno autonómico?",
+  opciones: ["El Rey", "Un Presidente elegido por la Asamblea", "El Gobierno central", "Los Consejeros"],
+  correcta: 1
+},
+{
+  id: 419,
+  seccion: "Organización Territorial",
+  nivel: 2,
+  pregunta: "¿Quién nombra al Presidente de la Comunidad Autónoma?",
+  opciones: ["La Asamblea", "El Rey", "El Gobierno", "El pueblo directamente"],
+  correcta: 1
+},
+{
+  id: 420,
+  seccion: "Organización Territorial",
+  nivel: 2,
+  pregunta: "¿Puede existir un Tribunal Superior de Justicia en cada Comunidad?",
+  opciones: ["No", "Sí", "Solo en las históricas", "Es obligatorio"],
+  correcta: 1
+},
+{
+  id: 421,
+  seccion: "Organización Territorial",
+  nivel: 2,
+  pregunta: "¿Puede modificarse un Estatuto de Autonomía?",
+  opciones: ["No, es inmutable", "Sí, según el procedimiento previsto en el mismo", "Solo por las Cortes", "Solo por referéndum"],
+  correcta: 1
+},
+{
+  id: 422,
+  seccion: "Organización Territorial",
+  nivel: 2,
+  pregunta: "¿Requiere la reforma del Estatuto aprobación por las Cortes?",
+  opciones: ["No", "Sí, mediante ley orgánica", "Solo en algunos casos", "Solo del Congreso"],
+  correcta: 1
+},
+{
+  id: 423,
+  seccion: "Organización Territorial",
+  nivel: 1,
+  pregunta: "¿Pueden las Comunidades Autónomas asumir competencias?",
+  opciones: ["No", "Sí, las establecidas en sus Estatutos", "Todas las que quieran", "Solo las delegadas"],
+  correcta: 1
+},
+{
+  id: 424,
+  seccion: "Organización Territorial",
+  nivel: 2,
+  pregunta: "¿Puede el Estado transferir competencias a las Comunidades?",
+  opciones: ["No", "Sí, mediante ley orgánica", "Sí, sin restricción", "Solo algunas"],
+  correcta: 1
+},
+{
+  id: 425,
+  seccion: "Organización Territorial",
+  nivel: 2,
+  pregunta: "¿Pueden las Comunidades asumir competencias sobre organización de sus instituciones?",
+  opciones: ["No", "Sí", "Solo con autorización", "Solo las históricas"],
+  correcta: 1
+},
+{
+  id: 426,
+  seccion: "Organización Territorial",
+  nivel: 2,
+  pregunta: "¿Pueden las Comunidades asumir competencias sobre urbanismo?",
+  opciones: ["No", "Sí", "Solo las grandes", "Con autorización estatal"],
+  correcta: 1
+},
+{
+  id: 427,
+  seccion: "Organización Territorial",
+  nivel: 2,
+  pregunta: "¿Pueden las Comunidades regular el patrimonio de la Comunidad?",
+  opciones: ["No", "Sí", "Solo el municipal", "Con autorización"],
+  correcta: 1
+},
+{
+  id: 428,
+  seccion: "Organización Territorial",
+  nivel: 2,
+  pregunta: "¿Pueden las Comunidades asumir competencias en agricultura y ganadería?",
+  opciones: ["No", "Sí", "Solo agricultura", "Solo ganadería"],
+  correcta: 1
+},
+{
+  id: 429,
+  seccion: "Organización Territorial",
+  nivel: 2,
+  pregunta: "¿Pueden las Comunidades regular los montes y aprovechamientos forestales?",
+  opciones: ["No", "Sí", "Solo montes públicos", "Con autorización"],
+  correcta: 1
+},
+{
+  id: 430,
+  seccion: "Organización Territorial",
+  nivel: 2,
+  pregunta: "¿Pueden las Comunidades asumir competencias sobre museos y bibliotecas?",
+  opciones: ["No", "Sí, de interés para la Comunidad", "Solo museos", "Solo bibliotecas"],
+  correcta: 1
+},
+{
+  id: 431,
+  seccion: "Organización Territorial",
+  nivel: 2,
+  pregunta: "¿Pueden las Comunidades regular el turismo?",
+  opciones: ["No", "Sí", "Solo promocionarlo", "Con autorización estatal"],
+  correcta: 1
+},
+{
+  id: 432,
+  seccion: "Organización Territorial",
+  nivel: 2,
+  pregunta: "¿Tienen las Comunidades competencias en deporte y ocio?",
+  opciones: ["No", "Sí", "Solo deporte", "Solo ocio"],
+  correcta: 1
+},
+{
+  id: 433,
+  seccion: "Organización Territorial",
+  nivel: 2,
+  pregunta: "¿Pueden las Comunidades tener policía propia?",
+  opciones: ["No", "Sí, en los términos de ley orgánica", "Todas deben tenerla", "Solo las históricas"],
+  correcta: 1
+},
+{
+  id: 434,
+  seccion: "Organización Territorial",
+  nivel: 2,
+  pregunta: "¿Qué competencias tiene exclusivas el Estado?",
+  opciones: ["Ninguna", "Las del artículo 149", "Todas", "Solo defensa"],
+  correcta: 1
+},
+{
+  id: 435,
+  seccion: "Organización Territorial",
+  nivel: 2,
+  pregunta: "¿Es competencia exclusiva del Estado la defensa?",
+  opciones: ["No", "Sí", "Compartida", "De las Comunidades"],
+  correcta: 1
+},
+{
+  id: 436,
+  seccion: "Organización Territorial",
+  nivel: 2,
+  pregunta: "¿Es competencia exclusiva del Estado la nacionalidad?",
+  opciones: ["No", "Sí", "Compartida", "De las Comunidades"],
+  correcta: 1
+},
+{
+  id: 437,
+  seccion: "Organización Territorial",
+  nivel: 2,
+  pregunta: "¿Es competencia exclusiva del Estado las relaciones internacionales?",
+  opciones: ["No", "Sí", "Compartida", "Las Comunidades pueden tenerlas"],
+  correcta: 1
+},
+{
+  id: 438,
+  seccion: "Organización Territorial",
+  nivel: 2,
+  pregunta: "¿Es competencia exclusiva del Estado la administración de justicia?",
+  opciones: ["No", "Sí", "Compartida", "De las Comunidades"],
+  correcta: 1
+},
+{
+  id: 439,
+  seccion: "Organización Territorial",
+  nivel: 2,
+  pregunta: "¿Puede el Estado regular las bases del régimen jurídico de las Administraciones públicas?",
+  opciones: ["No", "Sí", "Solo de la estatal", "Con autorización autonómica"],
+  correcta: 1
+},
+{
+  id: 440,
+  seccion: "Organización Territorial",
+  nivel: 2,
+  pregunta: "¿Qué ocurre con las competencias no asumidas por las Comunidades?",
+  opciones: ["Desaparecen", "Corresponden al Estado", "Quedan vacías", "Se reparten"],
+  correcta: 1
+},
+{
+  id: 441,
+  seccion: "Organización Territorial",
+  nivel: 2,
+  pregunta: "¿Prevalece el derecho estatal sobre el autonómico en caso de conflicto?",
+  opciones: ["No", "Sí, en materias de competencia exclusiva estatal", "Siempre el autonómico", "Depende del caso"],
+  correcta: 1
+},
+{
+  id: 442,
+  seccion: "Organización Territorial",
+  nivel: 2,
+  pregunta: "¿Prevalece el derecho autonómico en sus competencias exclusivas?",
+  opciones: ["No, siempre el estatal", "Sí", "Nunca", "Depende"],
+  correcta: 1
+},
+{
+  id: 443,
+  seccion: "Organización Territorial",
+  nivel: 2,
+  pregunta: "¿Puede el Estado dictar leyes marco sobre materias de competencia autonómica?",
+  opciones: ["No", "Sí, cuando sea necesario para garantizar la igualdad", "Siempre", "Nunca"],
+  correcta: 1
+},
+{
+  id: 444,
+  seccion: "Organización Territorial",
+  nivel: 2,
+  pregunta: "¿Pueden las Comunidades dictar normas legislativas sobre materias estatales?",
+  opciones: ["No", "Sí, por delegación mediante ley orgánica", "Sí, libremente", "Nunca"],
+  correcta: 1
+},
+{
+  id: 445,
+  seccion: "Organización Territorial",
+  nivel: 2,
+  pregunta: "¿Puede el Estado controlar las Comunidades Autónomas?",
+  opciones: ["Sí, sin límites", "Sí, en los términos que establezca la ley orgánica", "No", "Solo en estado de excepción"],
+  correcta: 1
+},
+{
+  id: 446,
+  seccion: "Organización Territorial",
+  nivel: 2,
+  pregunta: "¿Pueden impugnarse ante el Tribunal Constitucional las disposiciones autonómicas?",
+  opciones: ["No", "Sí", "Solo algunas", "Solo con autorización"],
+  correcta: 1
+},
+{
+  id: 447,
+  seccion: "Organización Territorial",
+  nivel: 2,
+  pregunta: "¿Suspende la impugnación la vigencia de la disposición autonómica?",
+  opciones: ["No", "Sí, en los casos previstos en la ley orgánica", "Siempre", "Nunca"],
+  correcta: 1
+},
+{
+  id: 448,
+  seccion: "Organización Territorial",
+  nivel: 2,
+  pregunta: "¿Qué ocurre si una Comunidad no cumple sus obligaciones?",
+  opciones: ["Nada", "El Gobierno puede adoptar medidas necesarias", "Se disuelve", "Pierde competencias"],
+  correcta: 1
+},
+{
+  id: 449,
+  seccion: "Organización Territorial",
+  nivel: 2,
+  pregunta: "¿Puede el Gobierno obligar al cumplimiento forzoso de obligaciones autonómicas?",
+  opciones: ["No", "Sí, con autorización del Senado", "Sí, libremente", "Solo en emergencias"],
+  correcta: 1
+},
+{
+  id: 450,
+  seccion: "Organización Territorial",
+  nivel: 2,
+  pregunta: "¿Tienen las Comunidades autonomía financiera?",
+  opciones: ["No", "Sí", "Solo presupuestaria", "Solo tributaria"],
+  correcta: 1
+},
+
+/* =========================
+   TRIBUNAL CONSTITUCIONAL
+========================= */
+{
+id: 451,
+seccion: "Tribunal Constitucional",
+nivel: 2,
+pregunta: "¿Cuántos magistrados componen el Tribunal Constitucional?",
+opciones: ["10", "12", "15", "20"],
+correcta: 1
+},
+{
+id: 452,
+seccion: "Tribunal Constitucional",
+nivel: 1,
+pregunta: "¿El Tribunal Constitucional forma parte del Poder Judicial?",
+opciones: ["Sí", "No", "Solo parcialmente", "Depende del caso"],
+correcta: 1
+},
+{
+id: 453,
+seccion: "Tribunal Constitucional",
+nivel: 2,
+pregunta: "¿Cuántos años dura el mandato de los magistrados del TC?",
+opciones: ["4", "6", "8", "9"],
+correcta: 2
+},
+{
+id: 454,
+seccion: "Tribunal Constitucional",
+nivel: 3,
+pregunta: "¿Quién nombra al Presidente del Tribunal Constitucional?",
+opciones: [
+"El Congreso",
+"El Rey",
+"El Gobierno",
+"El propio Tribunal"
+],
+correcta: 1
+},
+{
+id: 455,
+seccion: "Tribunal Constitucional",
+nivel: 1,
+pregunta: "¿Está el Tribunal Constitucional sometido solo a la Constitución y a su Ley Orgánica?",
+opciones: ["Sí", "No", "Solo a la Constitución", "Depende de los casos"],
+correcta: 0
+},
+{
+id: 456,
+seccion: "Tribunal Constitucional",
+nivel: 2,
+pregunta: "¿Cuántos magistrados propone el Congreso de los Diputados para el Tribunal Constitucional?",
+opciones: ["2", "4", "6", "8"],
+correcta: 1
+},
+{
+id: 457,
+seccion: "Tribunal Constitucional",
+nivel: 2,
+pregunta: "¿Quién nombra formalmente a los magistrados del Tribunal Constitucional?",
+opciones: ["El Congreso", "El Senado", "El Rey", "El Presidente del Gobierno"],
+correcta: 2
+},
+{
+id: 458,
+seccion: "Tribunal Constitucional",
+nivel: 3,
+pregunta: "¿Qué mayoría se requiere en el Congreso para proponer magistrados al TC?",
+opciones: ["Mayoría absoluta", "Mayoría de tres quintos", "Mayoría simple", "Dos tercios"],
+correcta: 1
+},
+{
+id: 459,
+seccion: "Tribunal Constitucional",
+nivel: 1,
+pregunta: "¿Los magistrados del TC deben ser juristas de reconocida competencia con más de 15 años de ejercicio?",
+opciones: ["Sí", "No", "Solo 10 años", "No se requiere experiencia"],
+correcta: 0
+},
+{
+id: 460,
+seccion: "Tribunal Constitucional",
+nivel: 2,
+pregunta: "¿De qué fuentes pueden provenir los magistrados del TC?",
+opciones: ["Solo jueces", "Magistrados, fiscales, profesores universitarios, funcionarios y abogados", "Solo políticos", "Cualquier ciudadano"],
+correcta: 1
+},
+{
+id: 461,
+seccion: "Tribunal Constitucional",
+nivel: 1,
+pregunta: "¿Son los magistrados del Tribunal Constitucional independientes e inamovibles durante su mandato?",
+opciones: ["Sí", "No", "Solo independientes", "Solo inamovibles"],
+correcta: 0
+},
+{
+id: 462,
+seccion: "Tribunal Constitucional",
+nivel: 3,
+pregunta: "¿Cómo se renuevan los magistrados del Tribunal Constitucional?",
+opciones: ["Todos a la vez cada 9 años", "Por terceras partes cada 3 años", "Por mitad cada 6 años", "Anualmente"],
+correcta: 1
+},
+{
+id: 463,
+seccion: "Tribunal Constitucional",
+nivel: 2,
+pregunta: "¿Cuántos años dura el mandato del Presidente del Tribunal Constitucional?",
+opciones: ["3 años", "6 años", "9 años", "Indefinido"],
+correcta: 0
+},
+{
+id: 464,
+seccion: "Tribunal Constitucional",
+nivel: 1,
+pregunta: "¿Es incompatible ser magistrado del TC con un cargo político o directivo en un partido?",
+opciones: ["Sí", "No", "Solo parcialmente", "Depende"],
+correcta: 0
+},
+{
+id: 465,
+seccion: "Tribunal Constitucional",
+nivel: 2,
+pregunta: "¿Puede un magistrado del TC ejercer la carrera judicial o fiscal durante su mandato?",
+opciones: ["Sí", "No", "Solo como suplente", "Depende del caso"],
+correcta: 1
+},
+{
+id: 466,
+seccion: "Tribunal Constitucional",
+nivel: 3,
+pregunta: "¿Qué competencias principales tiene el Tribunal Constitucional según la Constitución?",
+opciones: ["Control de constitucionalidad de leyes y protección de derechos fundamentales", "Legislar normas ordinarias", "Gobernar el país", "Administrar justicia penal"],
+correcta: 0
+},
+{
+id: 467,
+seccion: "Tribunal Constitucional",
+nivel: 1,
+pregunta: "¿Quién puede interponer un recurso de inconstitucionalidad?",
+opciones: ["Cualquier ciudadano", "Presidente del Gobierno, Defensor del Pueblo, 50 diputados, etc.", "Solo el Rey", "Solo jueces"],
+correcta: 1
+},
+{
+id: 468,
+seccion: "Tribunal Constitucional",
+nivel: 2,
+pregunta: "¿Qué es el recurso de amparo constitucional?",
+opciones: ["Impugnar leyes", "Protección de derechos fundamentales violados por poderes públicos", "Resolver conflictos económicos", "Nombrar magistrados"],
+correcta: 1
+},
+{
+id: 469,
+seccion: "Tribunal Constitucional",
+nivel: 3,
+pregunta: "¿Quién puede plantear una cuestión de inconstitucionalidad?",
+opciones: ["Cualquier persona", "Órganos judiciales en un proceso", "El Gobierno directamente", "El Parlamento"],
+correcta: 1
+},
+{
+id: 470,
+seccion: "Tribunal Constitucional",
+nivel: 1,
+pregunta: "¿Resuelve el TC conflictos de competencias entre el Estado y las Comunidades Autónomas?",
+opciones: ["Sí", "No", "Solo entre Comunidades", "Solo con el Estado"],
+correcta: 0
+},
+{
+id: 471,
+seccion: "Tribunal Constitucional",
+nivel: 2,
+pregunta: "¿Tienen las sentencias del TC efectos erga omnes cuando declaran inconstitucionalidad?",
+opciones: ["Sí", "No", "Solo para las partes", "Depende"],
+correcta: 0
+},
+{
+id: 472,
+seccion: "Tribunal Constitucional",
+nivel: 3,
+pregunta: "¿Se publican las sentencias del TC en el BOE con votos particulares?",
+opciones: ["Sí", "No", "Solo las mayoritarias", "Solo si lo pide el Gobierno"],
+correcta: 0
+},
+{
+id: 473,
+seccion: "Tribunal Constitucional",
+nivel: 1,
+pregunta: "¿Es el TC el intérprete supremo de la Constitución?",
+opciones: ["Sí", "No", "Comparte con el Tribunal Supremo", "No existe tal figura"],
+correcta: 0
+},
+{
+id: 474,
+seccion: "Tribunal Constitucional",
+nivel: 2,
+pregunta: "¿Cuántas Salas tiene el Tribunal Constitucional?",
+opciones: ["Una", "Dos", "Tres", "Cuatro"],
+correcta: 1
+},
+{
+id: 475,
+seccion: "Tribunal Constitucional",
+nivel: 3,
+pregunta: "¿Puede el Gobierno impugnar disposiciones de Comunidades Autónomas ante el TC?",
+opciones: ["Sí", "No", "Solo el Congreso", "Solo el Senado"],
+correcta: 0
+},
+{
+id: 476,
+seccion: "Tribunal Constitucional",
+nivel: 1,
+pregunta: "¿Tiene el TC jurisdicción en todo el territorio español?",
+opciones: ["Sí", "No", "Solo en península", "Solo en capitales"],
+correcta: 0
+},
+{
+id: 477,
+seccion: "Tribunal Constitucional",
+nivel: 2,
+pregunta: "¿Es posible el recurso previo de inconstitucionalidad contra proyectos de Estatutos de Autonomía?",
+opciones: ["Sí", "No", "Solo posterior", "Depende"],
+correcta: 0
+},
+{
+id: 478,
+seccion: "Tribunal Constitucional",
+nivel: 3,
+pregunta: "¿Quién propone al Vicepresidente del Tribunal Constitucional?",
+opciones: ["El Rey", "El Pleno del TC", "El Gobierno", "El Congreso"],
+correcta: 1
+},
+{
+id: 479,
+seccion: "Tribunal Constitucional",
+nivel: 1,
+pregunta: "¿Es el TC independiente de los demás órganos constitucionales?",
+opciones: ["Sí", "No", "Depende del Poder Judicial", "Solo del Legislativo"],
+correcta: 0
+},
+{
+id: 480,
+seccion: "Tribunal Constitucional",
+nivel: 2,
+pregunta: "¿Cuántos magistrados propone el Consejo General del Poder Judicial?",
+opciones: ["2", "4", "6", "Ninguno"],
+correcta: 0
+},
+{
+id: 481,
+seccion: "Tribunal Constitucional",
+nivel: 3,
+pregunta: "¿Puede haber conflictos en defensa de la autonomía local ante el TC?",
+opciones: ["Sí", "No", "Solo foral", "Depende"],
+correcta: 0
+},
+{
+id: 482,
+seccion: "Tribunal Constitucional",
+nivel: 1,
+pregunta: "¿Las sentencias del TC tienen valor de cosa juzgada?",
+opciones: ["Sí", "No", "Solo algunas", "Depende del caso"],
+correcta: 0
+},
+{
+id: 483,
+seccion: "Tribunal Constitucional",
+nivel: 2,
+pregunta: "¿Quién regula el funcionamiento del TC?",
+opciones: ["Una ley ordinaria", "Una ley orgánica", "Un decreto", "El Reglamento del Congreso"],
+correcta: 1
+},
+{
+id: 484,
+seccion: "Tribunal Constitucional",
+nivel: 3,
+pregunta: "¿Puede el TC verificar si los nombramientos de magistrados cumplen requisitos?",
+opciones: ["Sí", "No", "Solo el Rey", "El Gobierno"],
+correcta: 0
+},
+{
+id: 485,
+seccion: "Tribunal Constitucional",
+nivel: 1,
+pregunta: "¿Es el recurso de amparo una vía subsidiaria?",
+opciones: ["Sí", "No", "Principal", "Opcional"],
+correcta: 0
+},
+{
+id: 486,
+seccion: "Tribunal Constitucional",
+nivel: 2,
+pregunta: "¿Cuántos magistrados propone el Gobierno al TC?",
+opciones: ["2", "4", "Ninguno", "6"],
+correcta: 0
+},
+{
+id: 487,
+seccion: "Tribunal Constitucional",
+nivel: 3,
+pregunta: "¿La impugnación por el Gobierno de actos autonómicos suspende su vigencia?",
+opciones: ["Sí, automáticamente", "No", "Sí, pero el TC decide en 5 meses", "Nunca"],
+correcta: 2
+},
+{
+id: 488,
+seccion: "Tribunal Constitucional",
+nivel: 1,
+pregunta: "¿Protege el amparo derechos del artículo 14 al 30 de la CE?",
+opciones: ["Sí", "No", "Solo hasta el 29", "Todos los derechos"],
+correcta: 0
+},
+{
+id: 489,
+seccion: "Tribunal Constitucional",
+nivel: 2,
+pregunta: "¿Actúa el TC en Pleno, Salas y Secciones?",
+opciones: ["Sí", "No", "Solo Pleno", "Solo Salas"],
+correcta: 0
+},
+{
+id: 490,
+seccion: "Tribunal Constitucional",
+nivel: 3,
+pregunta: "¿Puede haber recurso de amparo electoral?",
+opciones: ["Sí", "No", "Solo contra leyes", "Depende"],
+correcta: 0
+},
+{
+id: 491,
+seccion: "Tribunal Constitucional",
+nivel: 1,
+pregunta: "¿Es el TC único en su orden?",
+opciones: ["Sí", "No", "Comparte con otros", "No aplica"],
+correcta: 0
+},
+{
+id: 492,
+seccion: "Tribunal Constitucional",
+nivel: 2,
+pregunta: "¿Cuántos magistrados propone el Senado?",
+opciones: ["2", "4", "6", "Ninguno"],
+correcta: 1
+},
+{
+id: 493,
+seccion: "Tribunal Constitucional",
+nivel: 3,
+pregunta: "¿Las incompatibilidades de magistrados incluyen actividades mercantiles?",
+opciones: ["Sí", "No", "Solo políticas", "Ninguna"],
+correcta: 0
+},
+{
+id: 494,
+seccion: "Tribunal Constitucional",
+nivel: 1,
+pregunta: "¿Resuelve el TC conflictos entre órganos constitucionales del Estado?",
+opciones: ["Sí", "No", "Solo autonómicos", "No"],
+correcta: 0
+},
+{
+id: 495,
+seccion: "Tribunal Constitucional",
+nivel: 2,
+pregunta: "¿El mandato de magistrados es personal e intransferible?",
+opciones: ["Sí", "No", "Institucional", "Depende"],
+correcta: 0
+},
+{
+id: 496,
+seccion: "Tribunal Constitucional",
+nivel: 3,
+pregunta: "¿Puede el TC declarar nulidad de actos por invasión de jurisdicción?",
+opciones: ["Sí", "No", "Solo el Supremo", "No"],
+correcta: 0
+},
+{
+id: 497,
+seccion: "Tribunal Constitucional",
+nivel: 1,
+pregunta: "¿Es gratuito el procedimiento ante el TC?",
+opciones: ["Sí", "No", "Solo amparo", "Depende"],
+correcta: 0
+},
+{
+id: 498,
+seccion: "Tribunal Constitucional",
+nivel: 2,
+pregunta: "¿Quién nombra al Presidente del TC formalmente?",
+opciones: ["El Pleno", "El Rey a propuesta del Pleno", "El Gobierno", "El Congreso"],
+correcta: 1
+},
+{
+id: 499,
+seccion: "Tribunal Constitucional",
+nivel: 3,
+pregunta: "¿Puede prorrogarse el mandato de magistrados si hay retraso en renovación?",
+opciones: ["Sí", "No", "Solo del Presidente", "Nunca"],
+correcta: 0
+},
+{
+id: 500,
+seccion: "Tribunal Constitucional",
+nivel: 1,
+pregunta: "¿El TC controla la constitucionalidad de tratados internacionales?",
+opciones: ["Sí, previamente", "No", "Solo posteriores", "Depende"],
+correcta: 0
+},
+{
+id: 501,
+seccion: "Tribunal Constitucional",
+nivel: 2,
+pregunta: "¿Cuántas Secciones hay por Sala en el TC?",
+opciones: ["Dos", "Tres", "Ninguna", "Variable"],
+correcta: 0
+},
+{
+id: 502,
+seccion: "Tribunal Constitucional",
+nivel: 3,
+pregunta: "¿El Defensor del Pueblo puede interponer recurso de inconstitucionalidad?",
+opciones: ["Sí", "No", "Solo amparo", "Depende"],
+correcta: 0
+},
+{
+id: 503,
+seccion: "Tribunal Constitucional",
+nivel: 1,
+pregunta: "¿Son inamovibles los magistrados salvo causas legales?",
+opciones: ["Sí", "No", "Solo políticos", "No"],
+correcta: 0
+},
+{
+id: 504,
+seccion: "Tribunal Constitucional",
+nivel: 2,
+pregunta: "¿El TC resuelve sobre constitucionalidad de normas forales?",
+opciones: ["Sí", "No", "Solo estatales", "Depende"],
+correcta: 0
+},
+{
+id: 505,
+seccion: "Tribunal Constitucional",
+nivel: 3,
+pregunta: "¿Puede el Ministerio Fiscal interponer recurso de amparo?",
+opciones: ["Sí", "No", "Solo inconstitucionalidad", "No"],
+correcta: 0
+},
+{
+id: 506,
+seccion: "Tribunal Constitucional",
+nivel: 1,
+pregunta: "¿Las sentencias declarativas de inconstitucionalidad tienen efectos generales?",
+opciones: ["Sí", "No", "Solo para partes", "Depende"],
+correcta: 0
+},
+{
+id: 507,
+seccion: "Tribunal Constitucional",
+nivel: 2,
+pregunta: "¿Es posible la reelección inmediata de magistrados del TC?",
+opciones: ["Sí", "No", "Solo una vez", "Depende"],
+correcta: 1
+},
+{
+id: 508,
+seccion: "Tribunal Constitucional",
+nivel: 3,
+pregunta: "¿El TC puede imponer sanciones por abuso en recursos?",
+opciones: ["Sí", "No", "Solo costas", "Nunca"],
+correcta: 0
+},
+{
+id: 509,
+seccion: "Tribunal Constitucional",
+nivel: 1,
+pregunta: "¿El amparo es contra violaciones por poderes públicos?",
+opciones: ["Sí", "No", "También particulares", "Solo judiciales"],
+correcta: 0
+},
+{
+id: 510,
+seccion: "Tribunal Constitucional",
+nivel: 2,
+pregunta: "¿Cuántos magistrados integran cada Sala del TC?",
+opciones: ["6", "12", "4", "Variable"],
+correcta: 0
+},
+{
+id: 511,
+seccion: "Tribunal Constitucional",
+nivel: 3,
+pregunta: "¿La cuestión de inconstitucionalidad suspende el proceso judicial?",
+opciones: ["Sí", "No", "Siempre", "Depende"],
+correcta: 1
+},
+{
+id: 512,
+seccion: "Tribunal Constitucional",
+nivel: 1,
+pregunta: "¿El TC es garante de los derechos fundamentales?",
+opciones: ["Sí", "No", "Compartido", "No"],
+correcta: 0
+},
+{
+id: 513,
+seccion: "Tribunal Constitucional",
+nivel: 2,
+pregunta: "¿Puede haber votos particulares en sentencias del TC?",
+opciones: ["Sí", "No", "Solo disidentes", "No se publican"],
+correcta: 0
+},
+{
+id: 514,
+seccion: "Tribunal Constitucional",
+nivel: 3,
+pregunta: "¿Quién puede promover conflictos de competencias autonómicas?",
+opciones: ["Gobierno o órganos autonómicos", "Cualquier ciudadano", "Solo jueces", "El Rey"],
+correcta: 0
+},
+{
+id: 515,
+seccion: "Tribunal Constitucional",
+nivel: 1,
+pregunta: "¿El TC no forma parte del Poder Judicial?",
+opciones: ["Sí, es independiente", "No, forma parte", "Depende", "Sí, pero subordinado"],
+correcta: 0
+},
+{
+id: 516,
+seccion: "Tribunal Constitucional",
+nivel: 2,
+pregunta: "¿Las vacantes por causas no expiración se cubren por el resto del mandato?",
+opciones: ["Sí", "No", "Mandato completo", "No se cubren"],
+correcta: 0
+},
+{
+id: 517,
+seccion: "Tribunal Constitucional",
+nivel: 3,
+pregunta: "¿Puede el TC dictar reglamentos internos?",
+opciones: ["Sí", "No", "Solo el Gobierno", "El Congreso"],
+correcta: 0
+},
+{
+id: 518,
+seccion: "Tribunal Constitucional",
+nivel: 1,
+pregunta: "¿El recurso de inconstitucionalidad es abstracto?",
+opciones: ["Sí", "No", "Siempre concreto", "Depende"],
+correcta: 0
+},
+{
+id: 519,
+seccion: "Tribunal Constitucional",
+nivel: 2,
+pregunta: "¿Cuántos diputados mínimo para recurso de inconstitucionalidad?",
+opciones: ["50", "100", "Mayoría", "Ninguno"],
+correcta: 0
+},
+{
+id: 520,
+seccion: "Tribunal Constitucional",
+nivel: 3,
+pregunta: "¿El TC resuelve impugnaciones por invasión de competencias autonómicas?",
+opciones: ["Sí", "No", "Solo el Gobierno", "Depende"],
+correcta: 0
+},
+{
+id: 521,
+seccion: "Tribunal Constitucional",
+nivel: 1,
+pregunta: "¿Son vinculantes las sentencias del TC para todos los poderes públicos?",
+opciones: ["Sí", "No", "Solo judiciales", "Depende"],
+correcta: 0
+},
+{
+id: 522,
+seccion: "Tribunal Constitucional",
+nivel: 2,
+pregunta: "¿El Pleno del TC resuelve los asuntos más importantes?",
+opciones: ["Sí", "No", "Las Salas", "Secciones"],
+correcta: 0
+},
+{
+id: 523,
+seccion: "Tribunal Constitucional",
+nivel: 3,
+pregunta: "¿Puede haber amparo contra vías de hecho de poderes públicos?",
+opciones: ["Sí", "No", "Solo actos formales", "No"],
+correcta: 0
+},
+{
+id: 524,
+seccion: "Tribunal Constitucional",
+nivel: 1,
+pregunta: "¿El TC protege la supremacía de la Constitución?",
+opciones: ["Sí", "No", "El Supremo", "El Gobierno"],
+correcta: 0
+}
+];
+
+let seleccionadas = [];
+
+function iniciar() {
+    const num = document.getElementById("numPreguntas").value;
+    const modo = document.getElementById("modo").value;
+    const secciones = [...document.querySelectorAll(".seccion:checked")].map(s => s.value);
+
+    seleccionadas = preguntas.filter(p => secciones.includes(p.seccion));
+    seleccionadas = seleccionadas.sort(() => 0.5 - Math.random()).slice(0, num);
+
+    mostrarTest(modo);
+}
+
+function mostrarTest(modo) {
+    const div = document.getElementById("test");
+    div.innerHTML = "";
+
+    seleccionadas.forEach((p, i) => {
+        const bloque = document.createElement("div");
+        bloque.innerHTML = `<p class="pregunta">${i+1}. ${p.pregunta}</p>`;
+        p.opciones.forEach((op, idx) => {
+            bloque.innerHTML += `
+            <label class="opcion">
+            <input type="radio" name="p${i}" value="${idx}"> ${op}
+            </label>`;
+        });
+        div.appendChild(bloque);
+    });
+
+    if (modo === "examen") {
+        const btn = document.createElement("button");
+        btn.textContent = "Corregir";
+        btn.onclick = corregir;
+        div.appendChild(btn);
+    }
+}
+
+function corregir() {
+    seleccionadas.forEach((p, i) => {
+        const marcada = document.querySelector(`input[name="p${i}"]:checked`);
+        if (marcada) {
+            if (parseInt(marcada.value) === p.correcta) {
+                marcada.parentElement.classList.add("correcta");
+            } else {
+                marcada.parentElement.classList.add("incorrecta");
+            }
+        }
+    });
+}
+</script>
+
+</body>
+</html>
